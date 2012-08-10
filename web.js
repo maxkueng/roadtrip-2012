@@ -4,7 +4,7 @@ var express = require('express');
 
 var app = express.createServer(
 //	express.logger(), 
-	express.static(__dirname + '/public'), 
+//	express.static(__dirname + '/public'), 
 	express.bodyParser(), 
 	express.cookieParser()
 );
