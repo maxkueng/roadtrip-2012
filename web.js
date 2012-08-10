@@ -4,7 +4,7 @@ var express = require('express');
 
 var app = express.createServer(
 //	express.logger(), 
-//	express.static(__dirname + '/public'), 
+	express.static(__dirname + '/public'), 
 	express.bodyParser(), 
 	express.cookieParser()
 );
@@ -15,5 +15,9 @@ app.listen(port, function () {
 });
 
 app.get('/', function (req, res) {
-	res.send('OK');
+	res.render('index.ejs', {
+		'layout' : 'layout.ejs',
+		'req' : req,
+		'res' : res
+	});
 });
