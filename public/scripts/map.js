@@ -23,9 +23,11 @@ $(document).ready(function () {
 
 	var fetchFullLayer = function (layer, properties) {
 		map.fitBounds(layer.getBounds());
-		$.getJSON('/data/' + properties.name + '-full.json', function (collection) {
-			featureLayer.addData(collection);
-		});
+		setTimeout(function () {
+			$.getJSON('/data/' + properties.name + '-full.json', function (collection) {
+				featureLayer.addData(collection);
+			});
+		}, 0);
 	};
 
 	var onEachFeature = function (feature, layer) {
