@@ -2,6 +2,9 @@
 
 var express = require('express');
 
+express.static.mime.define({'application/json': ['json']});
+			
+
 var app = express.createServer(
 //	express.logger(), 
 	express.static(__dirname + '/public'), 

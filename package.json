@@ -3,7 +3,8 @@
 	"version" : "0.0.1",
 	"dependencies" : {
 		"ejs" : "0.4.3", 
-		"express" : "2.2.0"
+		"express" : "2.2.0",
+		"csv" : "*"
 	},
 	"engines" : {
 		"node" : "0.8.x",
