@@ -74,7 +74,7 @@ var jsonLinesToJsonCoords = function () {
 		lines = data.match(/[^\r\n]+/g);
 
 		for (ii = 0, len2 = lines.length; ii < len2; ii++) {
-			if (ii !== 0 && ii !== len2 -1 && ii % 300 !== 0) { continue; }
+//			if (ii !== 0 && ii !== len2 -1 && ii % 300 !== 0) { continue; }
 			lineData = JSON.parse(lines[ii]);
 			coords.push([lineData.longitude, lineData.latitude]);
 		}

@@ -5,7 +5,7 @@
 			"id": "2011-03-23.json",
 			"type": "Feature",
 			"properties": {
-				"name": "2011-03-23.json"
+				"name": "2011-03-23"
 			},
 			"geometry": {
 				"type": "LineString",

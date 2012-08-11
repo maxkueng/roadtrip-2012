@@ -18,6 +18,15 @@ $(document).ready(function () {
 		'weight' : 4,
 		'opacity' : 0.8
 	};
+	var featureLayer;
+
+	var fetchFullLayer = function (layer, properties) {
+		$.getJSON('/data/' + properties.name + '-full.json', function (collection) {
+			featureLayer.addData(collection);
+			featureLayer.removeLayer(layer);
+							map.fitBounds(new L.geoJson(collection).getBounds());
+		});
+	};
 
 	var onEachFeature = function (feature, layer) {
 		console.log('ID', L.Util.stamp(layer));
@@ -29,14 +38,18 @@ $(document).ready(function () {
 			});
 
 			layer.on("mouseout", function (e) {
-				console.log(e);
 				layer.setStyle(defaultStyle); 
+			});
+
+			layer.on('click', function (e) {
+				featureLayer.removeLayer(layer);
+				fetchFullLayer(layer, properties);
 			});
 
 		})(layer, feature.properties);
 	};
 
-	var featureLayer = L.geoJson(null, {
+	featureLayer = L.geoJson(null, {
 		'onEachFeature' : onEachFeature
 	});
 	map.addLayer(featureLayer);
@@ -45,9 +58,14 @@ $(document).ready(function () {
 		$.getJSON('/data/stages.json', function(data) {
 			var i, len;
 			for (i = 0, len = data.length; i < len; i++) {
-				$.getJSON('/data/' + data[i] + '.json', function (collection) {
-					featureLayer.addData(collection);
-				});
+				(function (_i) {
+					$.getJSON('/data/' + data[_i] + '.json', function (collection) {
+						featureLayer.addData(collection);
+						if (_i === (len -1)) {
+							map.fitBounds(featureLayer.getBounds());
+						}
+					});
+				})(i);
 			}
 		});
 	};
