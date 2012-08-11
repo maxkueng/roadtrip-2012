@@ -33,10 +33,13 @@ $(document).ready(function () {
 		layer.setStyle(defaultStyle);
 
 		if (layers.hasOwnProperty(feature.properties.name)) {
-			featureLayer.removeLayer(layers[feature.properties.name]);
+			setTimeout(function () {
+				featureLayer.removeLayer(layers[feature.properties.name]);
+				console.log('RM', L.Util.stamp(layer));
+			}, 0);
 		}
 
-		layers[layers[feature.properties.name]] = layer;
+		layers[feature.properties.name] = layer;
 
 		(function(layer, properties) {
 			layer.on("mouseover", function (e) {
@@ -48,7 +51,6 @@ $(document).ready(function () {
 			});
 
 			layer.on('click', function (e) {
-				featureLayer.removeLayer(layer);
 				fetchFullLayer(layer, properties);
 			});
 
