@@ -36,7 +36,7 @@ $(document).ready(function () {
 
 		if (layers.hasOwnProperty(feature.properties.name)) {
 			featureLayer.removeLayer(layers[feature.properties.name]);
-			console.log('RM', L.Util.stamp(layers[feature.properties.name]));
+			delete layers[feature.properties.name];
 		}
 
 		layers[feature.properties.name] = layer;

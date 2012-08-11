@@ -4,7 +4,8 @@
 	"dependencies" : {
 		"ejs" : "0.4.3", 
 		"express" : "2.2.0",
-		"csv" : "*"
+		"csv" : "*",
+		"optimist" : "*"
 	},
 	"engines" : {
 		"node" : "0.8.x",
