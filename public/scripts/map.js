@@ -22,8 +22,8 @@ $(document).ready(function () {
 	var layers = {};
 
 	var fetchFullLayer = function (layer, properties) {
+		map.fitBounds(layer.getBounds());
 		$.getJSON('/data/' + properties.name + '-full.json', function (collection) {
-			map.fitBounds(layer.getBounds());
 			featureLayer.addData(collection);
 		});
 	};
@@ -34,7 +34,7 @@ $(document).ready(function () {
 
 		if (layers.hasOwnProperty(feature.properties.name)) {
 			featureLayer.removeLayer(layers[feature.properties.name]);
-			console.log('RM', L.Util.stamp(layer));
+			console.log('RM', L.Util.stamp(layers[feature.properties.name]));
 		}
 
 		layers[feature.properties.name] = layer;
