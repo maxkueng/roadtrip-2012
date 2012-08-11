@@ -19,18 +19,24 @@ $(document).ready(function () {
 		'opacity' : 0.8
 	};
 	var featureLayer;
+	var layers = {};
 
 	var fetchFullLayer = function (layer, properties) {
 		$.getJSON('/data/' + properties.name + '-full.json', function (collection) {
+			map.fitBounds(layer.getBounds());
 			featureLayer.addData(collection);
-			featureLayer.removeLayer(layer);
-							map.fitBounds(new L.geoJson(collection).getBounds());
 		});
 	};
 
 	var onEachFeature = function (feature, layer) {
 		console.log('ID', L.Util.stamp(layer));
 		layer.setStyle(defaultStyle);
+
+		if (layers.hasOwnProperty(feature.properties.name)) {
+			featureLayer.removeLayer(layers[feature.properties.name]);
+		}
+
+		layers[layers[feature.properties.name]] = layer;
 
 		(function(layer, properties) {
 			layer.on("mouseover", function (e) {
