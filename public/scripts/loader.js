@@ -179,6 +179,11 @@
 		this.canvasCtx.drawImage(this.buffer, 0, 0);
 	};
 
+	OrbiterSystem.prototype.start = function () {
+		this.run = true;
+		this.animate();
+	};
+
 	OrbiterSystem.prototype.stop = function () {
 		this.run = false;
 	};
@@ -187,7 +192,6 @@
 		var self = this;
 
 		if (this.run === false) { return; }
-		this.run = true;
 		this.update();
 
 		window.requestAnimFrame(function () {
@@ -215,7 +219,7 @@
 		},
 
 		start : function () { 
-			$(this)[0].system.animate();
+			$(this)[0].system.start();
 			$(this).show();
 		},
 
