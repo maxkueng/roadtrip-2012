@@ -10,6 +10,7 @@
 		<![endif]-->
 		<link rel="stylesheet" type="text/css" href="/stylesheets/base.css" />
 		<script type="text/javascript" src="/scripts/jquery-1.8.0.min.js"></script>
+		<script type="text/javascript" src="/scripts/loader.js"></script>
 	</head>
 
 	<body class="">
@@ -17,6 +18,13 @@
 			<div id="map"></div>
 			<%- body %>
 		</div>
+		<div id="loaderWrapper"><div id="loader"></div></div>
+		<script type="text/javascript">
+		$(document).ready(function () {
+			$('#loader').loader();
+			$('#loader').hide();
+		});
+		</script>
 		<script type="text/javascript" src="http://cdn.leafletjs.com/leaflet-0.4/leaflet.js"></script>
 		<script type="text/javascript" src="/scripts/map.js"></script>
 	</body>

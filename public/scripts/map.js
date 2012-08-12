@@ -22,7 +22,9 @@ $(document).ready(function () {
 	var layers = {};
 
 	var fetchFullLayer = function (layer, properties) {
+		$('#loader').loader('start');
 		map.fitBounds(layer.getBounds());
+
 		setTimeout(function () {
 			$.getJSON('/data/' + properties.name + '-full.json', function (collection) {
 				featureLayer.addData(collection);
@@ -36,6 +38,7 @@ $(document).ready(function () {
 
 		if (layers.hasOwnProperty(feature.properties.name)) {
 			featureLayer.removeLayer(layers[feature.properties.name]);
+			$('#loader').loader('stop');
 			delete layers[feature.properties.name];
 		}
 
