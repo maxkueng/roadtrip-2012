@@ -7,7 +7,7 @@
 			window.oRequestAnimationFrame      || 
 			window.msRequestAnimationFrame     ||  
 			function( callback ){
-				window.setTimeout(callback, 1000 / 60);
+				window.setTimeout(callback, 1000 / 30);
 			};
 	})();
 
@@ -94,7 +94,7 @@
 		this.orbit = 2;
 
 		this.radius = 3;
-		this.color = new Color(239, 255, 0, 0.5);
+		this.color = new Color(255, 0, 51, 0.75);
 	};
 
 	OrbiterParticle.prototype.draw = function () {
@@ -119,7 +119,7 @@
 		this.particles = [];
 		this.particleCount = 3;
 
-		this.backgroundColor = new Color(0, 0, 0, 1);
+		this.backgroundColor = new Color(0, 0, 0, 0);
 		this.width = buffer.width;
 		this.height = buffer.height;
 		this.position = new Vector(this.width / 2, this.height / 2);
@@ -135,7 +135,7 @@
 			particle.position = this.position;
 
 			particle.orbit = 10;
-			particle.speed = 0.1;
+			particle.speed = 0.075;
 			particle.angle =  i % 360;
 
 			this.particles.push(particle);
@@ -143,9 +143,9 @@
 	};
 
 	OrbiterSystem.prototype.paintCanvas = function () {
-//		bufferCtx.fillStyle = this.backgroundColor.toRgbaString();
-//		bufferCtx.fillRect(0, 0, this.width, this.height);
-		this.bufferCtx.clearRect(0, 0, this.width, this.height);
+		this.bufferCtx.fillStyle = this.backgroundColor.toRgbaString();
+		this.bufferCtx.fillRect(0, 0, this.width, this.height);
+//		this.bufferCtx.clearRect(0, 0, this.width, this.height);
 	};
 
 	OrbiterSystem.prototype.update = function () {
@@ -224,8 +224,8 @@
 		},
 
 		stop : function () {
-			$(this)[0].system.stop();
 			$(this).hide();
+			$(this)[0].system.stop();
 		}
 	};
 
