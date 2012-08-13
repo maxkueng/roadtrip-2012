@@ -4,10 +4,13 @@ var fs = require('fs');
 var path = require('path');
 var csv = require('csv');
 
-var v900Path = path.join('.', 'v900');
+var v900Path = path.join('.', 'v900csv');
 var dataPath = path.join('.', 'public', 'data');
-var jslPath = path.join(dataPath, 'jsonlines');
+var trackPath = path.join(dataPath, 'track');
+var statsPath = path.join(dataPath, 'stats');
+var jslPath = path.join(trackPath, 'jsonlines');
 var stagesPath = path.join(dataPath, 'stages.json');
+var timecodePath = path.join(dataPath, 'timecode.json');
 
 var rmTreeSync = exports.rmTreeSync = function(p) {
     if (!fs.existsSync(p)) return;
@@ -30,16 +33,25 @@ var rmTreeSync = exports.rmTreeSync = function(p) {
 };
 
 if (argv.clear) {
-	rmTreeSync(dataPath);
-	console.log('clear');
+	rmTreeSync(trackPath);
+	console.log('tracks clear');
+	process.exit();
 }
 
 if (!fs.existsSync(dataPath)) {
 	fs.mkdirSync(dataPath);
 }
 
+if (!fs.existsSync(trackPath)) {
+	fs.mkdirSync(trackPath);
+}
+
 if (!fs.existsSync(jslPath)) {
 	fs.mkdirSync(jslPath);
+}
+
+if (!fs.existsSync(statsPath)) {
+	fs.mkdirSync(statsPath);
 }
 
 var v900ToJsonLines = function () {
@@ -156,11 +168,63 @@ var jsonLinesToGeoJson = function () {
 		};
 
 		geojson.features[0].geometry.coordinates = fullCoords;
-		fs.writeFileSync(path.join(dataPath, dateString + '-full.json'), JSON.stringify(geojson, null, '\t'), 'utf8');
+		fs.writeFileSync(path.join(trackPath, dateString + '-full.json'), JSON.stringify(geojson, null, '\t'), 'utf8');
 
 		geojson.features[0].geometry.coordinates = coords;
-		fs.writeFileSync(path.join(dataPath, dateString + '.json'), JSON.stringify(geojson, null, '\t'), 'utf8');
+		fs.writeFileSync(path.join(trackPath, dateString + '.json'), JSON.stringify(geojson, null, '\t'), 'utf8');
 	}
+};
+
+var jsonLinesToTimecode = function () {
+	var i, len, ii, len2, files, linesFilePath, data, lines,
+		record, timeCoords, time, lastTime,
+		tcStart, tcEnd, tcTime, timeCodes, step;
+
+	files = fs.readdirSync(jslPath);
+	files = files.sort();
+	timeCoords = {};
+	timeCodes = {};
+	step = 600000;
+
+	lastTime = 0;
+	for (i = 0, len = files.length; i < len; i++) {
+		linesFilePath = path.join(jslPath, files[i]);
+		data = fs.readFileSync(linesFilePath, 'utf8');
+		lines = data.match(/[^\r\n]+/g);
+
+		for (ii = 0, len2 = lines.length; ii < len2; ii++) {
+			record = JSON.parse(lines[ii]);
+			time = record.time - (record.time % step);
+
+			if (i === 0 && ii === 0) { tcStart = time; }
+			if (i === (len - 1) && ii === (len2 - 1)) { tcEnd = time; }
+
+			if (time > lastTime) {
+				lastTime = time;
+				timeCoords[time] = [ record.latitude, record.longitude ];
+			}
+		}
+	}
+
+	tcTime = tcStart - step;;
+	while (tcTime <= tcEnd) {
+		tcTime += step;
+
+		if (timeCoords[tcTime]) {
+			timeCodes[tcTime] = timeCoords[tcTime];
+			continue;
+		}
+
+		timeCodes[tcTime] = timeCodes[tcTime - step]
+	}
+
+	for (time in timeCodes) {
+		console.log(new Date(+time), timeCodes[time]);
+	}
+
+	fs.writeFileSync(timecodePath, JSON.stringify(timeCodes, null, '\t'), 'utf8');
+
+
 };
 
 if (argv.line) {
@@ -168,4 +232,7 @@ if (argv.line) {
 
 } else if (argv.geo) {
 	jsonLinesToGeoJson();
+
+} else if (argv.timecode) {
+	jsonLinesToTimecode();
 }

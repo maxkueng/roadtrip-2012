@@ -26,14 +26,13 @@ $(document).ready(function () {
 		map.fitBounds(layer.getBounds());
 
 		setTimeout(function () {
-			$.getJSON('/data/' + properties.name + '-full.json', function (collection) {
+			$.getJSON('/data/track/' + properties.name + '-full.json', function (collection) {
 				featureLayer.addData(collection);
 			});
 		}, 0);
 	};
 
 	var onEachFeature = function (feature, layer) {
-		console.log('ID', L.Util.stamp(layer));
 		layer.setStyle(defaultStyle);
 
 		if (layers.hasOwnProperty(feature.properties.name)) {
@@ -70,7 +69,7 @@ $(document).ready(function () {
 			var i, len;
 			for (i = 0, len = data.length; i < len; i++) {
 				(function (_i) {
-					$.getJSON('/data/' + data[_i] + '.json', function (collection) {
+					$.getJSON('/data/track/' + data[_i] + '.json', function (collection) {
 						featureLayer.addData(collection);
 						if (_i === (len -1)) {
 							map.fitBounds(featureLayer.getBounds());
@@ -81,5 +80,20 @@ $(document).ready(function () {
 		});
 	};
 
+	var getPhotos = function () {
+
+	var photoMarkers = new L.MarkerClusterGroup();
+		$.getJSON('/data/photos.json', function (data) {
+			var i, len;
+			for (i = 0, len = data.length; i < len; i++) {
+				var marker = new L.Marker(new L.LatLng(data[i].latitude, data[i].longitude), { title: 'photo' });
+				marker.bindPopup('<a href="' + data[i].pageUrl + '">Link</a>');
+				photoMarkers.addLayer(marker);
+			}
+			map.addLayer(photoMarkers);
+		});
+	};
+
 	getStages();
+	getPhotos();
 });
