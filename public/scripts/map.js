@@ -86,8 +86,10 @@ $(document).ready(function () {
 		$.getJSON('/data/photos.json', function (data) {
 			var i, len;
 			for (i = 0, len = data.length; i < len; i++) {
-				var marker = new L.Marker(new L.LatLng(data[i].latitude, data[i].longitude), { title: 'photo' });
-				marker.bindPopup('<a href="' + data[i].pageUrl + '">Link</a>');
+				var marker = new L.Marker(new L.LatLng(data[i].latitude, data[i].longitude), { 
+					'title' : 'photo'
+				});
+				marker.bindPopup('<a href="' + data[i].pageUrl + '"><img src="' + data[i].url_sq + '" /></a>');
 				photoMarkers.addLayer(marker);
 			}
 			map.addLayer(photoMarkers);

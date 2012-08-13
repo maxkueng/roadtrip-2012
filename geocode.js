@@ -23,7 +23,7 @@ var tagPhotos = function (page) {
 	if (typeof page === 'undefined') { page = 1; }
 
 	flickr.photosets.getPhotos(setId, {
-		'extras' : [ 'date_taken', 'url_m', 'geo' ],
+		'extras' : [ 'date_taken', 'url_m', 'url_sq', 'geo' ],
 		'page' : page
 	}, function (err, response) {
 		var i, len, p, ph, time, tc;
@@ -38,6 +38,7 @@ var tagPhotos = function (page) {
 			p = {
 				'pageUrl' : 'http://www.flickr.com/photos/' + userId + '/' + ph.id + '/in/set-' + setId,
 				'url_m' : ph.url_m,
+				'url_sq' : ph.url_sq,
 				'latitude' : timecode[time][0],
 				'longitude' : timecode[time][1]
 			};
@@ -49,6 +50,7 @@ var tagPhotos = function (page) {
 			tagPhotos(parseInt(response.page) + 1);
 
 		} else {
+			console.log('P', photos.length);
 			fs.writeFileSync(photosPath, JSON.stringify(photos, null, '\t'), 'utf8');
 		}
 	});
