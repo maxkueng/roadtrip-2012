@@ -80,7 +80,7 @@ var v900ToJsonLines = function () {
 			timeMatch = /^(\d\d)(\d\d)(\d\d)$/.exec(data[3]);
 			time = new Date();
 			time.setUTCFullYear(+dateMatch[1] + 2000);
-			time.setUTCMonth(+dateMatch[2]);
+			time.setUTCMonth(+dateMatch[2] -1);
 			time.setUTCDate(+dateMatch[3]);
 			time.setUTCHours(+timeMatch[1]);
 			time.setUTCMinutes(+timeMatch[2]);
@@ -113,7 +113,7 @@ var v900ToJsonLines = function () {
 			};
 
 
-			dateString = time.getUTCFullYear() + '-' + ( (time.getUTCMonth() < 10) ? '0' : '' ) + time.getUTCMonth() + '-' + ( (time.getUTCDate() < 10) ? '0' : '' ) + time.getUTCDate();
+			dateString = time.getUTCFullYear() + '-' + ( ((time.getUTCMonth() + 1) < 10) ? '0' : '' ) + (time.getUTCMonth() + 1) + '-' + ( (time.getUTCDate() < 10) ? '0' : '' ) + time.getUTCDate();
 			fileName = dateString + '.json'
 			fs.appendFileSync(path.join(jslPath, fileName), JSON.stringify(record) + '\n', 'utf8');
 
