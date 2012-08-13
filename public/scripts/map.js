@@ -27,16 +27,14 @@ $(document).ready(function () {
 	};
 
 	var rectStyle = {
-		'color' : 'transparent', 
+		//'color' : 'transparent', 
+		'color' : '#33CC66', 
 		'fillColor' : 'transparent'
 	};
 
+	var photoLayer;
 	var featureLayer;
 	var stages = {};
-
-	map.on('zoomed', function () {
-		// map.getZoom();
-	});
 
 	var fetchFullLayer = function (name) {
 		var layer = stages[name].normal;
@@ -44,6 +42,11 @@ $(document).ready(function () {
 		if (stages.hasOwnProperty(name) && stages[name].full === null) {
 			$('#loader').loader('start');
 			map.fitBounds(layer.getBounds());
+			if (stages[name].rect) {
+				stages[name].rect.setStyle(highlightStyle);
+				stages[name].rect.setBounds(layer.getBounds());
+				stages[name].rect.bringToFront();
+			}
 
 			setTimeout(function () {
 				$.getJSON('/data/track/' + name + '-full.json', function (collection) {
@@ -75,12 +78,14 @@ $(document).ready(function () {
 
 		if (!stages.hasOwnProperty(layerName)) {
 			stages[layerName] = {
+				'rect' : null,
 				'normal' : layer,
 				'full' : null
 			};
 
 			var rect = new L.Rectangle(layer.getBounds());
 			rect.setStyle(rectStyle);
+			rect.bringToFront();
 
 			rect.on('mouseover', function (e) {
 				highlightLayer(layerName, true);
@@ -94,6 +99,7 @@ $(document).ready(function () {
 				fetchFullLayer(layerName);
 			});
 
+			stages[layerName].rect = rect;
 			map.addLayer(rect);
 
 		} else {
@@ -125,10 +131,12 @@ $(document).ready(function () {
 		});
 	};
 
+	photoLayer = new L.LayerGroup();
+
 	var getPhotos = function () {
 		var oms = new OverlappingMarkerSpiderfier(map);
 
-		$.getJSON('/data/photos.json', function (data) {
+/*		$.getJSON('/data/photos.json', function (data) {
 			var i, len;
 			for (i = 0, len = data.length; i < len; i++) {
 				var marker = new L.Marker(new L.LatLng(data[i].latitude, data[i].longitude), { 
@@ -141,8 +149,12 @@ $(document).ready(function () {
 				marker.addTo(map);
 				oms.addMarker(marker);
 			}
-		});
+		}); */
 	};
+
+	map.on('zoomed', function () {
+		// map.getZoom();
+	});
 
 	getStages();
 	getPhotos();
