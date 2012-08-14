@@ -26,11 +26,23 @@
 			<div id="map"></div>
 			<%- body %>
 		</div>
-		<div id="loaderWrapper"><div id="loader"></div></div>
+		<div id="loader-wrapper"><div id="loader"></div></div>
+		<div id="stage-overlay">
+			<div id="stage-overlay-bg">x</div>
+			<div id="stage-overlay-content">
+				<p class="stage"><span class="label">Stage</span> <span class="stage"></span></p>
+				<p class="time"><span class="label">Date</span> <span class="time"></span></p>
+				<p class="from"><span class="label">From</span> <span class="from"></span></p>
+				<p class="to"><span class="label">To</span> <span class="to"></span></p>
+				<p class="distance"><span class="label">Distance</span> <span class="distance"></span></p>
+				<p class="avgspeed"><span class="label">Average speed</span> <span class="avgspeed"></span></p>
+			</div>
+		</div>
 		<script type="text/javascript">
 		$(document).ready(function () {
 			$('#loader').loader();
 			$('#loader').hide();
+			$('#stage-overlay').hide();
 		});
 		</script>
 		<script type="text/javascript" src="/scripts/map.js"></script>

@@ -1,0 +1,21 @@
+{
+	"stage" : 1,
+	"stageName" : "2011-03-22",
+	"time" : 1300752000000,
+	"from" : "Lugano, Switzerland",
+	"to" : "Milano, Italy",
+	"weather" : "Sunny",
+	"distance" : 35.15,
+	"rideTime" : "02:10:16",
+	"avgSpeed" : 16.10,
+	"maxSpeed" : 40.00,
+	"maxAlti" : 560,
+	"altiGain" : 345,
+	"altiLoss" : 208,
+	"upDistance" : 14.82,
+	"downDistance" : 8.47,
+	"avgAscend" : 2,
+	"maxAscend" : 2,
+	"avgDescend" : -2,
+	"maxDescend" : -2
+}

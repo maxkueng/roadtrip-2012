@@ -35,6 +35,26 @@ $(document).ready(function () {
 	var photoLayer;
 	var featureLayer;
 	var stages = {};
+	var stageInfo = {};
+
+	var showStageOverlay = function (stageName) {
+		if (stageInfo.hasOwnProperty(stageName)) {
+			var stats = stageInfo[stageName];
+
+			$('#stage-overlay span.stage').text(stats.stage);
+			$('#stage-overlay span.time').text(stats.stageName);
+			$('#stage-overlay span.from').text(stats.from);
+			$('#stage-overlay span.to').text(stats.to);
+			$('#stage-overlay span.distance').text(stats.distance + ' km');
+			$('#stage-overlay span.avgspeed').text(stats.avgSpeed + ' km/h');
+
+			$('#stage-overlay').show();
+		}
+	};
+
+	var hideStageOverlay = function () {
+		$('#stage-overlay').hide();
+	};
 
 	var fetchFullLayer = function (name) {
 		var layer = stages[name].normal;
@@ -77,10 +97,12 @@ $(document).ready(function () {
 
 		rect.on('mouseover', function (e) {
 			highlightLayer(name, true);
+			showStageOverlay(name);
 		});
 
 		rect.on('mouseout', function (e) {
 			highlightLayer(name, false);
+			hideStageOverlay();
 		});
 
 		rect.on('click', function (e) {
@@ -129,6 +151,11 @@ $(document).ready(function () {
 					if (count === (len -1)) {
 						map.fitBounds(featureLayer.getBounds());
 					}
+				});
+
+				$.getJSON('/data/stats/' + data[i] + '.json', function (stats) {
+					if (!stats) { return; }
+					stageInfo[stats.stageName] = stats;
 				});
 			}
 		});

@@ -1,3 +1,14 @@
+body, html {
+	margin: 0;
+	padding: 0;
+}
+
+body {
+	font-family: sans-serif;
+	font-size: 14px;
+}
+
+
 #map {
 	position: absolute;
 	top: 0;
@@ -14,7 +25,7 @@
 	height: 50px;
 }*/
 
-div#loaderWrapper {
+div#loader-wrapper {
 	height: 0px; /* set to taste */
 	/* required */
 	position: absolute;
@@ -24,6 +35,7 @@ div#loaderWrapper {
 	left: 0px;
 	top: 50%;
 }
+
 div#loader {
 	overflow: hidden; /* set to taste */
 	position: absolute; /* required */
@@ -33,3 +45,93 @@ div#loader {
 	height: 50px; /* height of div */
 	top: -25px; /* half of height */
 }
+
+div#stage-overlay {
+	position: absolute;
+	top: 10px;
+	left: 50%;
+	margin-left: -300px;
+	z-index: 200;
+	width: 600px;
+	height: 100px;
+}
+
+div#stage-overlay-bg {
+	position: absolute;
+	top: 0;
+	left: 0;
+	bottom: 0;
+	right: 0;
+	width: 100%
+	height: 100%;
+	background-color: #0A0B12;
+	border: 1px solid #0B0719;
+	border-radius: 3px;
+	opacity: 0.8;
+	box-shadow: 0px 10px 10px #253F4C;
+}
+
+div#stage-overlay-content {
+	position: absolute;
+	top: 10px;
+	left: 10px;
+	bottom: 10px;
+	right: 10px;
+	width: 100%
+	height: 100%;
+	color: #fff;
+}
+
+div#stage-overlay-content p {
+	margin: 0;
+	padding: 0;
+	height: 1.5em;
+	line-height: 1.5em;
+}
+
+div#stage-overlay p.stage {
+	color: #D5FF00;
+	text-transform: uppercase;
+	font-weight: bold;
+}
+
+div#stage-overlay p.time {
+	position: absolute;
+	right: 0;
+	top: 0;
+	color: #D5FF00;
+}
+
+div#stage-overlay p.time .label,
+div#stage-overlay p.avgspeed .label,
+div#stage-overlay p.from .label,
+div#stage-overlay p.to .label {
+	display: none;
+}
+
+div#stage-overlay p.from,
+div#stage-overlay p.distance {
+	float: left;
+	clear: left;
+}
+
+div#stage-overlay p.from span.from:after {
+	content: "»";
+	font-size: 16px;
+	display: inline-block;
+	padding: 0 10px 0 10px;
+}
+
+div#stage-overlay p.distance span.label:after {
+	content: ":";
+}
+
+div#stage-overlay p.distance span.distance:after {
+	content: "at";
+	display: inline-block;
+	padding: 0 0.5em 0 0.5em;
+}
+
+/*div#stage-overlay p.avgspeed span.avgspeed:after {
+	content: " (avg. speed) ";
+}*/
