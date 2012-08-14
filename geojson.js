@@ -5,6 +5,11 @@ var path = require('path');
 var csv = require('csv');
 
 var v900Path = path.join('.', 'v900csv');
+
+if (argv.d) {
+	v900Path = path.join(argv.d);
+}
+
 var dataPath = path.join('.', 'public', 'data');
 var trackPath = path.join(dataPath, 'track');
 var statsPath = path.join(dataPath, 'stats');
@@ -53,6 +58,73 @@ if (!fs.existsSync(jslPath)) {
 if (!fs.existsSync(statsPath)) {
 	fs.mkdirSync(statsPath);
 }
+
+var v990ToJsonLines = function () {
+	var i, len, files, csvFilePath, stages;
+
+	files = fs.readdirSync(v900Path);
+	files = files.sort();
+	stages = [];
+
+	for (i = 0, len = files.length; i < len; i++) {
+		csvFilePath = path.join(v900Path, files[i]);
+		csv()
+		.fromPath(csvFilePath)
+		.transform(function(data){
+			var i, len, dateMatch, dateMatch, timeMatch, time,
+				latMatch, lonMatch, latitude, longitude, record,
+				fileName, dateString;
+
+			if (data[0] === 'INDEX') return;
+
+			for (i = 0, len = data.length; i < len; i++) {
+				data[i] = data[i].replace(/\u0000/g, '').trim();
+			}
+
+			dateMatch = /^(\d\d)(\d\d)(\d\d)$/.exec(data[2]);
+			timeMatch = /^(\d\d)(\d\d)(\d\d)$/.exec(data[3]);
+			time = new Date();
+			time.setUTCFullYear(+dateMatch[1] + 2000);
+			time.setUTCMonth(+dateMatch[2] -1);
+			time.setUTCDate(+dateMatch[3]);
+			time.setUTCHours(+timeMatch[1]);
+			time.setUTCMinutes(+timeMatch[2]);
+			time.setUTCSeconds(+timeMatch[3]);
+			time.setUTCMilliseconds(0);
+
+			latMatch = /^([0-9.]+)(N|S)$/.exec(data[4]);
+			latitude = latMatch[1];
+			if (latMatch[2] === 'S') { latitude *= -1; }
+
+			lonMatch = /^([0-9.]+)(E|W)$/.exec(data[5]);
+			longitude = lonMatch[1];
+			if (lonMatch[2] === 'W') { longitude *= -1; }
+
+			record = {
+				'index' : +data[0],
+				'tag' : data[1],
+				'time' : +time,
+				'latitude' : +latitude,
+				'longitude' : +longitude,
+				'height' : +data[6],
+				'speed' : +data[7],
+				'heading' : +data[8],
+				'vox' : +data[9]
+			};
+
+
+			dateString = time.getUTCFullYear() + '-' + ( ((time.getUTCMonth() + 1) < 10) ? '0' : '' ) + (time.getUTCMonth() + 1) + '-' + ( (time.getUTCDate() < 10) ? '0' : '' ) + time.getUTCDate();
+			fileName = dateString + '.json'
+			fs.appendFileSync(path.join(jslPath, fileName), JSON.stringify(record) + '\n', 'utf8');
+
+			if (stages.indexOf(dateString) === -1) {
+				console.log(dateString);
+				stages.push(dateString);
+				fs.writeFileSync(stagesPath, JSON.stringify(stages, null, '\t'), 'utf8');
+			}
+		});
+	}
+};
 
 var v900ToJsonLines = function () {
 	var i, len, files, csvFilePath, stages;
@@ -227,8 +299,12 @@ var jsonLinesToTimecode = function () {
 
 };
 
-if (argv.line) {
-	v900ToJsonLines();
+if (argv.lines) {
+	if (argv.x) { 
+		v990ToJsonLines();
+	} else {
+		v900ToJsonLines();
+	}
 
 } else if (argv.geo) {
 	jsonLinesToGeoJson();

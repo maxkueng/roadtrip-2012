@@ -27,8 +27,8 @@ $(document).ready(function () {
 	};
 
 	var rectStyle = {
-		//'color' : 'transparent', 
-		'color' : '#33CC66', 
+		'color' : 'transparent', 
+//		'color' : '#33CC66', 
 		'fillColor' : 'transparent'
 	};
 
@@ -43,9 +43,7 @@ $(document).ready(function () {
 			$('#loader').loader('start');
 			map.fitBounds(layer.getBounds());
 			if (stages[name].rect) {
-				stages[name].rect.setStyle(highlightStyle);
-				stages[name].rect.setBounds(layer.getBounds());
-				stages[name].rect.bringToFront();
+				map.removeLayer(stages[name].rect);
 			}
 
 			setTimeout(function () {
@@ -72,6 +70,27 @@ $(document).ready(function () {
 		layer.setStyle(style);
 	};
 
+	var createBoundingRect = function (name, layer) {
+		var rect = new L.Rectangle(layer.getBounds());
+		rect.setStyle(rectStyle);
+		rect.bringToFront();
+
+		rect.on('mouseover', function (e) {
+			highlightLayer(name, true);
+		});
+
+		rect.on('mouseout', function (e) {
+			highlightLayer(name, false);
+		});
+
+		rect.on('click', function (e) {
+			fetchFullLayer(name);
+		});
+
+		stages[name].rect = rect;
+		map.addLayer(rect);
+	};
+
 	var onEachFeature = function (feature, layer) {
 		var layerName = feature.properties.name;
 		layer.setStyle(defaultStyle);
@@ -83,29 +102,13 @@ $(document).ready(function () {
 				'full' : null
 			};
 
-			var rect = new L.Rectangle(layer.getBounds());
-			rect.setStyle(rectStyle);
-			rect.bringToFront();
-
-			rect.on('mouseover', function (e) {
-				highlightLayer(layerName, true);
-			});
-
-			rect.on('mouseout', function (e) {
-				highlightLayer(layerName, false);
-			});
-
-			rect.on('click', function (e) {
-				fetchFullLayer(layerName);
-			});
-
-			stages[layerName].rect = rect;
-			map.addLayer(rect);
+			createBoundingRect(layerName, layer);
 
 		} else {
 			featureLayer.removeLayer(stages[layerName].normal);
 			$('#loader').loader('stop');
 			stages[layerName].full = layer;
+			createBoundingRect(layerName, layer);
 //			delete stages[layerName].normal;
 		}
 	};
