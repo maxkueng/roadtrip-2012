@@ -37,24 +37,54 @@ $(document).ready(function () {
 	var featureLayer;
 	var stages = {};
 	var stageInfo = {};
+	var stageInfoActive = false;
+	var tripInfo = {};
 
 	var oms = new OverlappingMarkerSpiderfier(map);
+	oms.addListener('click', function (marker) {
+		if (marker.x_type && marker.x_type === 'comment') {
+			$('#sidebar p.comment').text(marker.x_poi.message);
+			$('#sidebar div.comment').slideDown();
+			return;
+		}
+	});
 
-	var showStageOverlay = function (stageName) {
+	map.on('click', function (e) {
+		$('#sidebar div.comment').slideUp();
+	});
+
+	var updateTripInfo = function () {
+		$('#sidebar .tripinfo .from').text(tripInfo.from + ' ');
+		$('#sidebar .tripinfo .to').text(tripInfo.to) + ' ';
+		$('#sidebar .tripinfo .distance').text(tripInfo.distance + ' km');
+		$('#sidebar .tripinfo .avgspeed').text(tripInfo.avgSpeed + ' km/h');
+	};
+
+	var showStageInfo = function (stageName) {
 		if (stageInfo.hasOwnProperty(stageName)) {
 			var stats = stageInfo[stageName];
 
 			$('#sidebar .stageinfo .stage').text(stats.stage);
-			$('#sidebar .stageinfo .stagename').text(stats.stageName);
+			$('#sidebar .stageinfo span.stagename').text(stats.stageName);
 			$('#sidebar .stageinfo .from').text(stats.from);
 			$('#sidebar .stageinfo .to').text(stats.to);
+			$('#sidebar .stageinfo .distance').text(stats.distance + ' km');
+			$('#sidebar .stageinfo .avgspeed').text(stats.avgSpeed + ' km/h');
+			stageInfoActive = true;
 
-			$('#sidebar .stageinfo').show();
+			setTimeout(function () {
+				if (!stageInfoActive) { return; }
+				$('#sidebar .stageinfo').slideDown();
+			}, 500);
 		}
 	};
 
-	var hideStageOverlay = function () {
-		$('#sidebar .stageinfo').hide();
+	var hideStageInfo = function () {
+		stageInfoActive = false;
+		setTimeout(function () {
+			if (stageInfoActive) { return; }
+			$('#sidebar .stageinfo').slideUp();
+		}, 500);
 	};
 
 	var fetchFullLayer = function (name) {
@@ -98,12 +128,12 @@ $(document).ready(function () {
 
 		rect.on('mouseover', function (e) {
 			highlightLayer(name, true);
-			showStageOverlay(name);
+			showStageInfo(name);
 		});
 
 		rect.on('mouseout', function (e) {
 			highlightLayer(name, false);
-			hideStageOverlay();
+			hideStageInfo();
 		});
 
 		rect.on('click', function (e) {
@@ -142,6 +172,15 @@ $(document).ready(function () {
 	map.addLayer(featureLayer);
 
 	var getStages = function () {
+		tripInfo = {
+			'fromStage' : null,
+			'from' : '',
+			'toStage' : null,
+			'to' : '',
+			'distance' : 0,
+			'avgSpeed' : 0
+		};
+
 		$.getJSON('/data/stages.json', function(data) {
 			var i, len, count;
 			count = 0;
@@ -157,6 +196,20 @@ $(document).ready(function () {
 				$.getJSON('/data/stats/' + data[i] + '.json', function (stats) {
 					if (!stats) { return; }
 					stageInfo[stats.stageName] = stats;
+
+					if (tripInfo.fromStage === null || stats.stage < tripInfo.fromStage) {
+						tripInfo.fromStage = stats.stage;
+						tripInfo.from = stats.from;
+					}
+
+					if (tripInfo.toStage === null || stats.stage > tripInfo.toStage) {
+						tripInfo.toStage = stats.stage;
+						tripInfo.to = stats.to;
+					}
+
+					tripInfo.distance += stats.distance;
+
+					updateTripInfo();
 				});
 			}
 		});
@@ -178,6 +231,8 @@ $(document).ready(function () {
 					'title' : 'photo',
 					'icon' : photoIcon
 				});
+				marker.x_type = 'photo';
+				marker.x_id = i;
 				marker.addTo(photoLayer);
 				oms.addMarker(marker);
 			}
@@ -198,10 +253,11 @@ $(document).ready(function () {
 
 			for (id in pois) {
 				if (pois[id].type === 'comment') {
-					console.log('p', pois[id]);
 					marker = new L.Marker(new L.LatLng(pois[id].latitude, pois[id].longitude), {
 						'icon' : commentIcon	
 					});
+					marker.x_type = 'comment';
+					marker.x_poi = pois[id];
 					marker.addTo(poiLayer);
 					oms.addMarker(marker);
 				}

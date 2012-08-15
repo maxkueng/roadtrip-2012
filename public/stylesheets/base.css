@@ -42,6 +42,11 @@ div#sidebar {
 	color: #fff;
 }
 
+div#sidebar .section {
+	border-top: 1px solid rgba(255, 255, 255, 0.7);
+	padding-top: 12px;
+}
+
 div#sidebar .zoominfo {
 	position: absolute;
 	top: 16px;
@@ -50,13 +55,15 @@ div#sidebar .zoominfo {
 	color: rgba(255, 0, 51, 1);
 }
 
-div#sidebar .stageinfo {
+div#sidebar div.comment, 
+div#sidebar div.stageinfo {
 	position: relative;
+	display: none;
 }
 
-div#sidebar .stageinfo .stagename {
+div#sidebar .stageinfo p.stagename {
 	position: absolute;
-	top: 5px;
+	top: 17px;
 	right: 0;
 }
 

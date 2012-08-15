@@ -227,9 +227,10 @@ var jsonLinesToGeoJson = function () {
 
 			if (record.tag === 'C') {
 				poiId = 'poi-' + record.index + '-' + Math.round(record.latitude * record.longitude);
-				console.log(record.index, poiId);
 				if (!poi.hasOwnProperty(poiId)) {
+					console.log(record.index, poiId);
 					poi[poiId] = {
+						"time" : record.time,
 						"type" : "",
 						"message" : "",
 						"latitude" : record.latitude,
