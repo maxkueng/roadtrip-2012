@@ -11,7 +11,8 @@ var timecodePath = path.join(dataPath, 'timecode.json');
 var photosPath = path.join(dataPath, 'photos.json');
 
 var userId = '67854812@N00'
-var setId = '72157623765049240';
+//var setId = '72157623765049240';
+var setId = '72157631077056194';
 var photos = [];
 var timecode = {};
 
