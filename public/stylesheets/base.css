@@ -1,13 +1,18 @@
-body, html {
-	margin: 0;
-	padding: 0;
+
+div.container {
+	right: 10px;
+	top: 10px;
+	position: absolute;
+	z-index: 400;
 }
 
-body {
-	font-family: sans-serif;
-	font-size: 14px;
+div.container dl.dl-horizontal dt {
+	width: 60px;
 }
 
+div.container dl.dl-horizontal dd {
+	margin-left: 70px;
+}
 
 #map {
 	position: absolute;
@@ -24,6 +29,36 @@ body {
 	width: 50px;
 	height: 50px;
 }*/
+
+div#sidebar {
+	position: relative;
+	padding: 12px;
+	background-color: #0A0B12;
+	background-color: rgba(10, 11, 18, 0.8);
+	border: 1px solid #0B0719;
+	border-color: rgba(11, 7, 25, 0.8);
+	border-radius: 3px;
+	box-shadow: 0px 10px 10px #253F4C;
+	color: #fff;
+}
+
+div#sidebar .zoominfo {
+	position: absolute;
+	top: 16px;
+	right: 12px;
+	color: #FF0033;
+	color: rgba(255, 0, 51, 1);
+}
+
+div#sidebar .stageinfo {
+	position: relative;
+}
+
+div#sidebar .stageinfo .stagename {
+	position: absolute;
+	top: 5px;
+	right: 0;
+}
 
 div#loader-wrapper {
 	height: 0px; /* set to taste */
@@ -82,7 +117,6 @@ div#stage-overlay-content {
 	color: #fff;
 }
 
-div#zoomlevel-overlay-content p,
 div#stage-overlay-content p {
 	margin: 0;
 	padding: 0;
@@ -133,53 +167,16 @@ div#stage-overlay p.distance span.distance:after {
 	padding: 0 0.5em 0 0.5em;
 }
 
-div#zoomlevel-overlay {
-	position: absolute;
-	top: 10px;
-	right: 10px;
-	z-index: 200;
-	border-radius: 7px 7px 7px 7px;
-	background: none repeat scroll 0 0 rgba(0, 0, 0, 0.25);
-	padding: 5px;
-}
-
-div#zoomlevel-overlay-content {
-	color: #000;
-	background-color: rgba(255, 255, 255, 0.75);
-	border-radius: 4px 4px 4px 4px;
-	padding: 5px;
-}
-
 /*div#stage-overlay p.avgspeed span.avgspeed:after {
 	content: " (avg. speed) ";
 }*/
 
 .photo-marker {
-	height: 20px;
-	width: 30px;
-	border-radius: 5px;
-	background-color: #FF0033;
-	background-color: rgba(20, 0, 0, 0.8);
+	font-size: 24px;
+	text-shadow: 0 -1px #fff, 1px 0 #fff, 0 1px #fff, -1px 0 #fff;
 }
 
-.photo-marker .lens {
-	position: absolute;
-	right: 5px;
-	top: 5px;
-	width: 10px;
-	height: 10px;
-	border-radius: 5px;
-	border: 2px solid rgba(255, 255, 255, 0.95);
-}
-
-.photo-marker .trigger {
-	position: absolute;
-	left: 5px;
-	top: -2px;
-	width: 7px;
-	height: 2px;
-	border-top-left-radius: 2px;
-	border-top-right-radius: 2px;
-	background-color: #FF0033;
-	background-color: rgba(20, 0, 0, 0.8);
+.comment-marker {
+	font-size: 24px;
+	text-shadow: 0 -1px #fff, 1px 0 #fff, 0 1px #fff, -1px 0 #fff;;
 }

@@ -201,7 +201,15 @@ var v900ProToJsonLines = function () {
 
 var jsonLinesToGeoJson = function () {
 	var i, len, files, linesFilePath, data, lines, fullCoords, coords,
-		ii, len2, record, geojson, dateString;
+		ii, len2, record, geojson, dateString, poi, poiData, poiId;
+
+	if (fs.existsSync(poiPath)) {
+		poiData = fs.readFileSync(poiPath, 'utf8');
+		poi = JSON.parse(poiData);
+
+	} else {
+		poi = {};
+	}
 
 	files = fs.readdirSync(jslPath);
 	files = files.sort();
@@ -213,18 +221,21 @@ var jsonLinesToGeoJson = function () {
 		lines = data.match(/[^\r\n]+/g);
 		fullCoords = [];
 		coords = [];
-		poi = [];
 
 		for (ii = 0, len2 = lines.length; ii < len2; ii++) {
 			record = JSON.parse(lines[ii]);
 
-			if (record['tag'] === 'C') {
-				poi.push({
-					"type" : "",
-					"message" : "",
-					"latitude" : record.latitude,
-					"longitude" : record.longitude,
-				});
+			if (record.tag === 'C') {
+				poiId = 'poi-' + record.index + '-' + Math.round(record.latitude * record.longitude);
+				console.log(record.index, poiId);
+				if (!poi.hasOwnProperty(poiId)) {
+					poi[poiId] = {
+						"type" : "",
+						"message" : "",
+						"latitude" : record.latitude,
+						"longitude" : record.longitude
+					};
+				}
 				continue;
 			}
 

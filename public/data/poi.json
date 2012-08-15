@@ -1,8 +1,38 @@
-[
-	{
-		"type": "",
-		"message": "",
+{
+	"poi-8-412": {
+		"type": "comment",
+		"message": "J ikj ij ij",
+		"latitude": 46.003054,
+		"longitude": 8.945553
+	},
+	"poi-5605-412": {
+		"type": "comment",
+		"message": "Ii oinoinoin ion",
+		"latitude": 45.876665,
+		"longitude": 8.984053
+	},
+	"poi-26230-421": {
+		"type": "comment",
+		"message": "Qsuins nkjsn",
+		"latitude": 45.598891,
+		"longitude": 9.237106
+	},
+	"poi-16630-451": {
+		"type": "comment",
+		"message": "Lalalala",
+		"latitude": 45.618641,
+		"longitude": 9.896478
+	},
+	"poi-25595-465": {
+		"type": "comment",
+		"message": "U unpin ji nj",
+		"latitude": 45.514794,
+		"longitude": 10.21539
+	},
+	"poi-3404-515": {
+		"type": "comment",
+		"message": "Gugugugu",
 		"latitude": 45.420096,
 		"longitude": 11.334613
 	}
-]
+}

@@ -38,23 +38,23 @@ $(document).ready(function () {
 	var stages = {};
 	var stageInfo = {};
 
+	var oms = new OverlappingMarkerSpiderfier(map);
+
 	var showStageOverlay = function (stageName) {
 		if (stageInfo.hasOwnProperty(stageName)) {
 			var stats = stageInfo[stageName];
 
-			$('#stage-overlay span.stage').text(stats.stage);
-			$('#stage-overlay span.time').text(stats.stageName);
-			$('#stage-overlay span.from').text(stats.from);
-			$('#stage-overlay span.to').text(stats.to);
-			$('#stage-overlay span.distance').text(stats.distance + ' km');
-			$('#stage-overlay span.avgspeed').text(stats.avgSpeed + ' km/h');
+			$('#sidebar .stageinfo .stage').text(stats.stage);
+			$('#sidebar .stageinfo .stagename').text(stats.stageName);
+			$('#sidebar .stageinfo .from').text(stats.from);
+			$('#sidebar .stageinfo .to').text(stats.to);
 
-			$('#stage-overlay').show();
+			$('#sidebar .stageinfo').show();
 		}
 	};
 
 	var hideStageOverlay = function () {
-		$('#stage-overlay').hide();
+		$('#sidebar .stageinfo').hide();
 	};
 
 	var fetchFullLayer = function (name) {
@@ -164,13 +164,12 @@ $(document).ready(function () {
 
 	photoLayer = new L.LayerGroup();
 	var photoIcon = new L.DivIcon({
-		'html' : '<div class="lens"></div><div class="trigger"></div>',
+		'html' : '<div class="icon-camera"></div>',
 		'className' : 'photo-marker',
 		'iconSize' : new L.Point(30, 22)
 	});
 
 	var getPhotos = function () {
-		var oms = new OverlappingMarkerSpiderfier(map);
 
 		$.getJSON('/data/photos.json', function (data) {
 			var i, len, marker, icon;
@@ -186,28 +185,38 @@ $(document).ready(function () {
 	};
 
 	poiLayer = new L.LayerGroup();
+	map.addLayer(poiLayer);
+	var commentIcon = new L.DivIcon({
+		'html' : '<div class="comment icon-comment"></div>',
+		'className' : 'comment-marker',
+		'iconSize' : new L.Point(30, 22)
+	});
 
 	var getPOIs = function () {
 		$.getJSON('/data/poi.json', function (pois) {
-			var i, len, marker;
+			var id, marker;
 
-			for (i = 0, len = pois.length; i < len; i++) {
-				marker = new L.Marker(new L.LatLng(pois[i].latitude, pois[i].longitude));
-				marker.addTo(poiLayer);
+			for (id in pois) {
+				if (pois[id].type === 'comment') {
+					console.log('p', pois[id]);
+					marker = new L.Marker(new L.LatLng(pois[id].latitude, pois[id].longitude), {
+						'icon' : commentIcon	
+					});
+					marker.addTo(poiLayer);
+					oms.addMarker(marker);
+				}
 			}
 		});
 	};
 
 	map.on('zoomend', function () {
 		var zoomLevel = map.getZoom();
-		$('#zoomlevel-overlay span.zoomlevel').text(zoomLevel);
+		$('#sidebar .zoominfo span.zoomlevel').text(zoomLevel);
 		
-		if (zoomLevel >= 11) {
+		if (zoomLevel >= 10) {
 			map.addLayer(photoLayer);
-			map.removeLayer(poiLayer);
 		} else {
 			map.removeLayer(photoLayer);
-			map.addLayer(poiLayer);
 		}
 		
 	});
