@@ -14,6 +14,7 @@ var dataPath = path.join('.', 'public', 'data');
 var trackPath = path.join(dataPath, 'track');
 var statsPath = path.join(dataPath, 'stats');
 var jslPath = path.join(trackPath, 'jsonlines');
+var poiPath = path.join(dataPath, 'poi.json');
 var stagesPath = path.join(dataPath, 'stages.json');
 var timecodePath = path.join(dataPath, 'timecode.json');
 
@@ -59,7 +60,7 @@ if (!fs.existsSync(statsPath)) {
 	fs.mkdirSync(statsPath);
 }
 
-var v990ToJsonLines = function () {
+var v900ToJsonLines = function () {
 	var i, len, files, csvFilePath, stages;
 
 	files = fs.readdirSync(v900Path);
@@ -126,7 +127,7 @@ var v990ToJsonLines = function () {
 	}
 };
 
-var v900ToJsonLines = function () {
+var v900ProToJsonLines = function () {
 	var i, len, files, csvFilePath, stages;
 
 	files = fs.readdirSync(v900Path);
@@ -212,9 +213,22 @@ var jsonLinesToGeoJson = function () {
 		lines = data.match(/[^\r\n]+/g);
 		fullCoords = [];
 		coords = [];
+		poi = [];
 
 		for (ii = 0, len2 = lines.length; ii < len2; ii++) {
 			record = JSON.parse(lines[ii]);
+
+			if (record['tag'] === 'C') {
+				poi.push({
+					"type" : "",
+					"message" : "",
+					"latitude" : record.latitude,
+					"longitude" : record.longitude,
+				});
+				continue;
+			}
+
+			if (record['tag'] !== 'T') { continue; }
 
 			fullCoords.push([ record.longitude, record.latitude ]);
 
@@ -244,6 +258,8 @@ var jsonLinesToGeoJson = function () {
 
 		geojson.features[0].geometry.coordinates = coords;
 		fs.writeFileSync(path.join(trackPath, dateString + '.json'), JSON.stringify(geojson, null, '\t'), 'utf8');
+
+		fs.writeFileSync(poiPath, JSON.stringify(poi, null, '\t'), 'utf8');
 	}
 };
 
@@ -300,8 +316,8 @@ var jsonLinesToTimecode = function () {
 };
 
 if (argv.lines) {
-	if (argv.x) { 
-		v990ToJsonLines();
+	if (argv.pro) { 
+		v900ProToJsonLines();
 	} else {
 		v900ToJsonLines();
 	}

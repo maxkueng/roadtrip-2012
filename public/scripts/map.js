@@ -33,6 +33,7 @@ $(document).ready(function () {
 	};
 
 	var photoLayer;
+	var poiLayer;
 	var featureLayer;
 	var stages = {};
 	var stageInfo = {};
@@ -147,10 +148,10 @@ $(document).ready(function () {
 			for (i = 0, len = data.length; i < len; i++) {
 				$.getJSON('/data/track/' + data[i] + '.json', function (collection) {
 					featureLayer.addData(collection);
-					count++;
 					if (count === (len -1)) {
 						map.fitBounds(featureLayer.getBounds());
 					}
+					count++;
 				});
 
 				$.getJSON('/data/stats/' + data[i] + '.json', function (stats) {
@@ -166,26 +167,51 @@ $(document).ready(function () {
 	var getPhotos = function () {
 		var oms = new OverlappingMarkerSpiderfier(map);
 
-/*		$.getJSON('/data/photos.json', function (data) {
-			var i, len;
+		$.getJSON('/data/photos.json', function (data) {
+			var i, len, marker, icon;
 			for (i = 0, len = data.length; i < len; i++) {
-				var marker = new L.Marker(new L.LatLng(data[i].latitude, data[i].longitude), { 
-					'title' : 'photo',
-					'icon' : new L.Icon({
-						'iconUrl' : data[i].url_sq,
-						'iconSize' : [22, 22]
-					})
+				icon = new L.DivIcon({
+					'className' : 'photo-marker',
+					'iconSize' : new L.Point(22, 22)
 				});
-				marker.addTo(map);
+				marker = new L.Marker(new L.LatLng(data[i].latitude, data[i].longitude), { 
+					'title' : 'photo',
+					'icon' : icon
+				});
+				marker.addTo(photoLayer);
 				oms.addMarker(marker);
 			}
-		}); */
+		});
 	};
 
-	map.on('zoomed', function () {
-		// map.getZoom();
+	poiLayer = new L.LayerGroup();
+
+	var getPOIs = function () {
+		$.getJSON('/data/poi.json', function (pois) {
+			var i, len, marker;
+
+			for (i = 0, len = pois.length; i < len; i++) {
+				marker = new L.Marker(new L.LatLng(pois[i].latitude, pois[i].longitude));
+				marker.addTo(poiLayer);
+			}
+		});
+	};
+
+	map.on('zoomend', function () {
+		var zoomLevel = map.getZoom();
+		$('#zoomlevel-overlay span.zoomlevel').text(zoomLevel);
+		
+		if (zoomLevel >= 11) {
+			map.addLayer(photoLayer);
+			map.removeLayer(poiLayer);
+		} else {
+			map.removeLayer(photoLayer);
+			map.addLayer(poiLayer);
+		}
+		
 	});
 
 	getStages();
 	getPhotos();
+	getPOIs();
 });
