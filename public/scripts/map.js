@@ -163,6 +163,11 @@ $(document).ready(function () {
 	};
 
 	photoLayer = new L.LayerGroup();
+	var photoIcon = new L.DivIcon({
+		'html' : '<div class="lens"></div><div class="trigger"></div>',
+		'className' : 'photo-marker',
+		'iconSize' : new L.Point(30, 22)
+	});
 
 	var getPhotos = function () {
 		var oms = new OverlappingMarkerSpiderfier(map);
@@ -170,13 +175,9 @@ $(document).ready(function () {
 		$.getJSON('/data/photos.json', function (data) {
 			var i, len, marker, icon;
 			for (i = 0, len = data.length; i < len; i++) {
-				icon = new L.DivIcon({
-					'className' : 'photo-marker',
-					'iconSize' : new L.Point(22, 22)
-				});
 				marker = new L.Marker(new L.LatLng(data[i].latitude, data[i].longitude), { 
 					'title' : 'photo',
-					'icon' : icon
+					'icon' : photoIcon
 				});
 				marker.addTo(photoLayer);
 				oms.addMarker(marker);
