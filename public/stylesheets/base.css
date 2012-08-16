@@ -221,6 +221,12 @@ div#stage-overlay p.distance span.distance:after {
 	text-shadow: 0 -1px #fff, 1px 0 #fff, 0 1px #fff, -1px 0 #fff;
 }
 
+.photo-marker .icon-camera.portrait {
+	transform: rotate(-90deg); 
+	-webkit-transform: rotate(-90deg); 
+	-moz-transform: rotate(-90deg);	
+}
+
 .comment-marker {
 	font-size: 24px;
 	text-shadow: 0 -1px #fff, 1px 0 #fff, 0 1px #fff, -1px 0 #fff;;

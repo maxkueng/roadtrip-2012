@@ -86,6 +86,8 @@ $(document).ready(function () {
 			$('#sidebar .stageinfo .to').text(stats.to);
 			$('#sidebar .stageinfo .distance').text(stats.distance + ' km');
 			$('#sidebar .stageinfo .avgspeed').text(stats.avgSpeed + ' km/h');
+			$('#sidebar .stageinfo .altigain').text(stats.altiGain + ' m');
+			$('#sidebar .stageinfo .altiloss').text(stats.altiLoss + ' m');
 			stageInfoActive = true;
 
 			setTimeout(function () {
@@ -248,10 +250,17 @@ $(document).ready(function () {
 	};
 
 	photoLayer = new L.LayerGroup();
+
 	var photoIcon = new L.DivIcon({
 		'html' : '<div class="icon-camera"></div>',
 		'className' : 'photo-marker',
 		'iconSize' : new L.Point(30, 22)
+	});
+
+	var photoIconPortrait = new L.DivIcon({
+		'html' : '<div class="icon-camera portrait"></div>',
+		'className' : 'photo-marker',
+		'iconSize' : new L.Point(22, 30)
 	});
 
 	var getPhotos = function () {
@@ -259,9 +268,12 @@ $(document).ready(function () {
 		$.getJSON('/data/photos.json', function (data) {
 			var i, len, marker, icon;
 			for (i = 0, len = data.length; i < len; i++) {
+				icon = photoIcon;
+				if (data[i].height > data[i].width) { icon = photoIconPortrait; }
+
 				marker = new L.Marker(new L.LatLng(data[i].latitude, data[i].longitude), { 
 					'title' : 'photo',
-					'icon' : photoIcon
+					'icon' : icon
 				});
 				marker.x_type = 'photo';
 				marker.x_id = i;
