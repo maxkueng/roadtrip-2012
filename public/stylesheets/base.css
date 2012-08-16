@@ -4,14 +4,46 @@ div.container {
 	top: 10px;
 	position: absolute;
 	z-index: 400;
+	background-color: rgba(199, 239, 118, 0.3);
+	width: 300px;
 }
 
 div.container dl.dl-horizontal dt {
-	width: 60px;
+	width: 80px;
 }
 
 div.container dl.dl-horizontal dd {
-	margin-left: 70px;
+	margin-left: 90px;
+}
+
+div.container [class^="icon-"] {
+	font-size: 1.2em;
+	line-height: 18px;
+	height: 18px;
+}
+
+div.container h3 [class^="icon-"] {
+	line-height: 27px;
+	height: 27px;
+	padding-right: 9px;
+}
+
+div.container blockquote.box {
+	font-weight: bold;
+	font-style: italic;
+	margin: 9px 0 0 30px;
+	padding: 0;
+	border: none;
+}
+
+div.container blockquote.box:before {
+	content: '“';
+	font-size: 1.2em;
+}
+
+div.container blockquote.box:after {
+	content: '”';
+	font-size: 1.2em;
 }
 
 #map {
@@ -51,16 +83,22 @@ div#sidebar .zoominfo {
 	position: absolute;
 	top: 16px;
 	right: 12px;
-	color: #FF0033;
-	color: rgba(255, 0, 51, 1);
+	color: #EFCB76;
+	color: rgba(239, 203, 118, 1);
 }
 
+div#sidebar div.photo, 
+div#sidebar div.maintenance, 
 div#sidebar div.comment, 
 div#sidebar div.stageinfo {
 	position: relative;
 	display: none;
 }
 
+div#sidebar .comment p.time,
+div#sidebar .maintenance p.time,
+div#sidebar .photo p.time,
+div#sidebar .stageinfo p.time,
 div#sidebar .stageinfo p.stagename {
 	position: absolute;
 	top: 17px;
@@ -184,6 +222,11 @@ div#stage-overlay p.distance span.distance:after {
 }
 
 .comment-marker {
+	font-size: 24px;
+	text-shadow: 0 -1px #fff, 1px 0 #fff, 0 1px #fff, -1px 0 #fff;;
+}
+
+.maintenance-marker {
 	font-size: 24px;
 	text-shadow: 0 -1px #fff, 1px 0 #fff, 0 1px #fff, -1px 0 #fff;;
 }

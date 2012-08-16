@@ -39,18 +39,33 @@ $(document).ready(function () {
 	var stageInfo = {};
 	var stageInfoActive = false;
 	var tripInfo = {};
+	var selectedStageName = null;
 
 	var oms = new OverlappingMarkerSpiderfier(map);
 	oms.addListener('click', function (marker) {
 		if (marker.x_type && marker.x_type === 'comment') {
-			$('#sidebar p.comment').text(marker.x_poi.message);
+			$('#sidebar div.comment span.time').text(new Date(+marker.x_poi.time).toString('MMM.dd HH:mm'));
+			$('#sidebar blockquote.comment').text(marker.x_poi.message);
+
 			$('#sidebar div.comment').slideDown();
+			$('#sidebar div.maintenance').slideUp();
+			return;
+		}
+
+		if (marker.x_type && marker.x_type === 'maintenance') {
+			$('#sidebar div.maintenance span.time').text(new Date(+marker.x_poi.time).toString('MMM.dd HH:mm'));
+			$('#sidebar blockquote.comment').text(marker.x_poi.message);
+
+			$('#sidebar div.maintenance').slideDown();
+			$('#sidebar div.comment').slideUp();
 			return;
 		}
 	});
 
 	map.on('click', function (e) {
 		$('#sidebar div.comment').slideUp();
+		$('#sidebar div.maintenance').slideUp();
+		$('#sidebar div.photo').slideUp();
 	});
 
 	var updateTripInfo = function () {
@@ -66,6 +81,7 @@ $(document).ready(function () {
 
 			$('#sidebar .stageinfo .stage').text(stats.stage);
 			$('#sidebar .stageinfo span.stagename').text(stats.stageName);
+			$('#sidebar .stageinfo span.time').text(new Date(+stats.time).toString('MMM.dd'));
 			$('#sidebar .stageinfo .from').text(stats.from);
 			$('#sidebar .stageinfo .to').text(stats.to);
 			$('#sidebar .stageinfo .distance').text(stats.distance + ' km');
@@ -127,14 +143,24 @@ $(document).ready(function () {
 		rect.bringToFront();
 
 		rect.on('mouseover', function (e) {
+			if (selectedStageName) {
+				highlightLayer(selectedStageName, false);
+			}
+
+			selectedStageName = name;
 			highlightLayer(name, true);
-			showStageInfo(name);
+
+			if (stageInfo[name]) {
+				showStageInfo(name);
+			} else {
+				hideStageInfo();
+			}
 		});
 
-		rect.on('mouseout', function (e) {
+/*		rect.on('mouseout', function (e) {
 			highlightLayer(name, false);
 			hideStageInfo();
-		});
+		}); */
 
 		rect.on('click', function (e) {
 			fetchFullLayer(name);
@@ -178,7 +204,7 @@ $(document).ready(function () {
 			'toStage' : null,
 			'to' : '',
 			'distance' : 0,
-			'avgSpeed' : 0
+			'avgSpeed' : null
 		};
 
 		$.getJSON('/data/stages.json', function(data) {
@@ -209,6 +235,12 @@ $(document).ready(function () {
 
 					tripInfo.distance += stats.distance;
 
+					if (tripInfo.avgSpeed !== null) {
+						tripInfo.avgSpeed = (tripInfo.avgSpeed + stats.avgSpeed) / 2;
+					} else {
+						tripInfo.avgSpeed = stats.avgSpeed;
+					}
+
 					updateTripInfo();
 				});
 			}
@@ -234,16 +266,23 @@ $(document).ready(function () {
 				marker.x_type = 'photo';
 				marker.x_id = i;
 				marker.addTo(photoLayer);
-				oms.addMarker(marker);
+//				oms.addMarker(marker);
 			}
 		});
 	};
 
 	poiLayer = new L.LayerGroup();
 	map.addLayer(poiLayer);
+
 	var commentIcon = new L.DivIcon({
 		'html' : '<div class="comment icon-comment"></div>',
 		'className' : 'comment-marker',
+		'iconSize' : new L.Point(30, 22)
+	});
+
+	var maintenanceIcon = new L.DivIcon({
+		'html' : '<div class="maintenance icon-wrench"></div>',
+		'className' : 'maintenance-marker',
 		'iconSize' : new L.Point(30, 22)
 	});
 
@@ -261,17 +300,39 @@ $(document).ready(function () {
 					marker.addTo(poiLayer);
 					oms.addMarker(marker);
 				}
+
+				if (pois[id].type === 'maintenance') {
+					marker = new L.Marker(new L.LatLng(pois[id].latitude, pois[id].longitude), {
+						'icon' : maintenanceIcon	
+					});
+					marker.x_type = 'maintenance';
+					marker.x_poi = pois[id];
+					marker.addTo(poiLayer);
+					oms.addMarker(marker);
+				}
 			}
 		});
 	};
 
 	map.on('zoomend', function () {
-		var zoomLevel = map.getZoom();
+		var zoomLevel;
+
+		zoomLevel = map.getZoom();
 		$('#sidebar .zoominfo span.zoomlevel').text(zoomLevel);
 		
 		if (zoomLevel >= 10) {
+
+			photoLayer.eachLayer(function (layer) {
+				oms.addMarker(layer);
+			});
+
 			map.addLayer(photoLayer);
+
 		} else {
+			photoLayer.eachLayer(function (layer) {
+				oms.removeMarker(layer);
+			});
+
 			map.removeLayer(photoLayer);
 		}
 		

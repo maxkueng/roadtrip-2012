@@ -21,13 +21,14 @@
 		<script type="text/javascript" src="http://cdn.leafletjs.com/leaflet-0.4/leaflet.js"></script>
 		<script src="/scripts/leaflet.markercluster-src.js"></script>
 		<script src="/scripts/oms.min.js"></script>
+		<script src="/scripts/date.js"></script>
 	</head>
 
 	<body class="">
 		<div class="container">
 			<%- body %>
 			<div class="row">
-				<div id="sidebar-wrapper" class="span4 offset8">
+				<div id="sidebar-wrapper" class="span4">
 					<div id="sidebar">
 
 						<div class="zoominfo">
@@ -35,7 +36,7 @@
 						</div>
 
 						<div class="tripinfo clearfix">
-							<h3>Trip</h3>
+							<h3><i class="icon-road"></i> Trip</h3>
 							<dl class="dl-horizontal">
 								<dt>From</dt>
 								<dd class="from"></dd>
@@ -49,8 +50,9 @@
 						</div>
 
 						<div class="stageinfo section clearfix">
-							<h3>Stage <span class="stage"></span></h3>
-							<p class="stagename"><i class="icon-time"></i> <span class="stagename"></span></p>
+							<h3><i class="icon-road"></i> Stage <span class="stage"></span></h3>
+							<!--p class="stagename"><i class="icon-time"></i> <span class="stagename"></span></p-->
+							<p class="time"><i class="icon-time"></i> <span class="time"></span></p>
 							<dl class="dl-horizontal">
 								<dt>From</dt>
 								<dd class="from"></dd>
@@ -60,10 +62,25 @@
 								<dd class="distance"></dd>
 								<dt>Speed</dt>
 								<dd class="avgspeed"></dd>
+								<dt>Time</dt>
+								<dd class="ridetime">0</dd>
+								<dt>Altitude gain</dt>
+								<dd class="altigain">0</dd>
+								<dt>Altitude loss</dt>
+								<dd class="altiloss">0</dd>
 							</dl>
 						</div>
+
 						<div class="comment section clearfix">
-							<p class="comment"></p>
+							<h3><i class="icon-comment-alt"></i> Message</h3>
+							<p class="time"><i class="icon-time"></i> <span class="time"></span></p>
+							<blockquote class="comment box"></blockquote>
+						</div>
+
+						<div class="maintenance section clearfix">
+							<h3><i class="icon-wrench"></i> Maintenance</h3>
+							<p class="time"><i class="icon-time"></i> <span class="time"></span></p>
+							<blockquote class="comment box"></blockquote>
 						</div>
 					</div>
 				</div>
