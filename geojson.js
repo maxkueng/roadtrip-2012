@@ -283,7 +283,11 @@ var jsonLinesToTimecode = function () {
 	files = fs.readdirSync(jslPath);
 	files = files.sort();
 	timeCoords = {};
-	timeCodes = {};
+	timeCodes = {
+		'start' : 0,
+		'end' : 0, 
+		'codes' : {}
+	};
 	step = 600000;
 
 	lastTime = 0;
@@ -296,8 +300,14 @@ var jsonLinesToTimecode = function () {
 			record = JSON.parse(lines[ii]);
 			time = record.time - (record.time % step);
 
-			if (i === 0 && ii === 0) { tcStart = time; }
-			if (i === (len - 1) && ii === (len2 - 1)) { tcEnd = time; }
+			if (i === 0 && ii === 0) { 
+				tcStart = time;
+				timeCodes.start = time;
+			}
+			if (i === (len - 1) && ii === (len2 - 1)) { 
+				tcEnd = time;
+				timeCodes.end = time;
+			}
 
 			if (time > lastTime) {
 				lastTime = time;
@@ -306,20 +316,20 @@ var jsonLinesToTimecode = function () {
 		}
 	}
 
-	tcTime = tcStart - step;;
+	tcTime = tcStart - step;
 	while (tcTime <= tcEnd) {
 		tcTime += step;
 
 		if (timeCoords[tcTime]) {
-			timeCodes[tcTime] = timeCoords[tcTime];
+			timeCodes.codes[tcTime] = timeCoords[tcTime];
 			continue;
 		}
 
-		timeCodes[tcTime] = timeCodes[tcTime - step]
+		timeCodes.codes[tcTime] = timeCodes.codes[tcTime - step]
 	}
 
-	for (time in timeCodes) {
-		console.log(new Date(+time), timeCodes[time]);
+	for (time in timeCodes.codes) {
+		console.log(new Date(+time), timeCodes.codes[time]);
 	}
 
 	fs.writeFileSync(timecodePath, JSON.stringify(timeCodes, null, '\t'), 'utf8');

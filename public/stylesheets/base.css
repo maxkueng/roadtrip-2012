@@ -87,6 +87,44 @@ div#sidebar .zoominfo {
 	color: rgba(239, 203, 118, 1);
 }
 
+div#sidebar .photos ul {
+	margin: 9px 0 0 0;
+	padding: 0;
+	overflow: hidden;
+}
+
+div#sidebar .photos ul li {
+	list-style-type: none;
+	display: block;
+	float: left;
+}
+
+div#sidebar .photo div.image a,
+div#sidebar .photos ul li a {
+	border-radius: 3px;
+	padding: 4px;
+	background-color: #fff;
+	display: block;
+	margin: 0 8px 8px 0;
+	box-shadow: 0px 4px 4px #253F4C;
+}
+
+div#sidebar .photo div.image a img,
+div#sidebar .photos ul li a img {
+	display: block;
+}
+
+div#sidebar .photo .image {
+	margin: 9px 0 0 0;
+	overflow: hidden;
+}
+
+div#sidebar .photo .image a {
+	float: left;
+}
+
+
+div#sidebar div.photos, 
 div#sidebar div.photo, 
 div#sidebar div.maintenance, 
 div#sidebar div.comment, 

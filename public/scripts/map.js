@@ -40,6 +40,7 @@ $(document).ready(function () {
 	var stageInfoActive = false;
 	var tripInfo = {};
 	var selectedStageName = null;
+	var photosActive = false;
 
 	var oms = new OverlappingMarkerSpiderfier(map);
 	oms.addListener('click', function (marker) {
@@ -49,6 +50,8 @@ $(document).ready(function () {
 
 			$('#sidebar div.comment').slideDown();
 			$('#sidebar div.maintenance').slideUp();
+			$('#sidebar div.photo').slideUp();
+			$('#sidebar div.photos').slideUp();
 			return;
 		}
 
@@ -58,14 +61,85 @@ $(document).ready(function () {
 
 			$('#sidebar div.maintenance').slideDown();
 			$('#sidebar div.comment').slideUp();
+			$('#sidebar div.photo').slideUp();
+			$('#sidebar div.photos').slideUp();
 			return;
 		}
+
+		if (marker.x_type && marker.x_type === 'photo') {
+			var data, img, a;
+			data = marker.x_photo;
+
+			img = $('<img />');
+			img.attr('src', data.url_s);
+
+			a = $('<a />');
+			a.attr('href', data.pageUrl);
+			a.append(img);
+
+			$('#sidebar div.photo div.image').empty();
+			$('#sidebar div.photo div.image').append(a);
+
+			$('#sidebar div.photo').slideDown();
+			$('#sidebar div.comment').slideUp();
+			$('#sidebar div.maintenance').slideUp();
+			$('#sidebar div.photos').slideUp();
+			return;
+		}
+	});
+
+	oms.addListener('spiderfy', function (spiderfied, unspiderfied) {
+			var i, len, photos, data, ul, li, a, img;
+			photos = [];
+
+			for (i = 0, len = spiderfied.length; i < len; i++) {
+				if (spiderfied[i].x_type && spiderfied[i].x_type === 'photo') {
+					photos.push(spiderfied[i].x_photo);
+				}
+			}
+
+			if (photos.length > 1) {
+				photosActive = true;
+				ul = $('#sidebar .photos ul');
+				$('#sidebar .photos ul li').remove();
+
+				for (i = 0, len = photos.length; i < len; i++) {
+					data = photos[i];
+
+					li = $('<li class="p" />');
+					a = $('<a />');
+					a.attr('href', data.pageUrl);
+					li.append(a);
+
+					img = $('<img />');
+					img.attr('src', data.url_sq);
+					a.append(img);
+
+					ul.append(li);
+				}
+
+				$('#sidebar div.maintenance').slideUp();
+				$('#sidebar div.comment').slideUp();
+				$('#sidebar div.photo').slideUp();
+				$('#sidebar div.photos').slideDown();
+			}
+	});
+
+	oms.addListener('unspiderfy', function (spiderfied, unspiderfied) {
+		photosActive = false;
+
+		setTimeout(function () {
+			if (photosActive) { return; }
+			$('#sidebar .photos').slideUp();
+		}, 500);
+		console.log('u', spiderfied.length, unspiderfied.length);
 	});
 
 	map.on('click', function (e) {
 		$('#sidebar div.comment').slideUp();
 		$('#sidebar div.maintenance').slideUp();
 		$('#sidebar div.photo').slideUp();
+		$('#sidebar div.photos').slideUp();
 	});
 
 	var secsToTimeString = function (secs) {
@@ -184,6 +258,11 @@ $(document).ready(function () {
 		}); */
 
 		rect.on('click', function (e) {
+			$('#sidebar div.maintenance').slideUp();
+			$('#sidebar div.comment').slideUp();
+			$('#sidebar div.photo').slideUp();
+			$('#sidebar div.photos').slideUp();
+			oms.unspiderfy();
 			fetchFullLayer(name);
 		});
 
@@ -204,11 +283,29 @@ $(document).ready(function () {
 
 			createBoundingRect(layerName, layer);
 
+			layer.on('click', function (e) {
+				$('#sidebar div.maintenance').slideUp();
+				$('#sidebar div.comment').slideUp();
+				$('#sidebar div.photo').slideUp();
+				$('#sidebar div.photos').slideUp();
+				oms.unspiderfy();
+				fetchFullLayer(layerName);
+			});
+
 		} else {
 			featureLayer.removeLayer(stages[layerName].normal);
 			$('#loader').loader('stop');
 			stages[layerName].full = layer;
 			createBoundingRect(layerName, layer);
+
+			layer.on('click', function (e) {
+				$('#sidebar div.maintenance').slideUp();
+				$('#sidebar div.comment').slideUp();
+				$('#sidebar div.photo').slideUp();
+				$('#sidebar div.photos').slideUp();
+				oms.unspiderfy();
+				fetchFullLayer(layerName);
+			});
 //			delete stages[layerName].normal;
 		}
 	};
@@ -300,7 +397,7 @@ $(document).ready(function () {
 			var i, len, marker, icon;
 			for (i = 0, len = data.length; i < len; i++) {
 				icon = photoIcon;
-				if (data[i].height > data[i].width) { icon = photoIconPortrait; }
+				if (parseInt(data[i].height_m) > parseInt(data[i].width_m)) { icon = photoIconPortrait; }
 
 				marker = new L.Marker(new L.LatLng(data[i].latitude, data[i].longitude), { 
 					'title' : 'photo',
@@ -308,6 +405,7 @@ $(document).ready(function () {
 				});
 				marker.x_type = 'photo';
 				marker.x_id = i;
+				marker.x_photo = data[i];
 				marker.addTo(photoLayer);
 //				oms.addMarker(marker);
 			}
