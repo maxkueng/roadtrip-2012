@@ -33,8 +33,8 @@ var tagPhotos = function (page) {
 
 		for (i = 0, len = response.photo.length; i < len; i++) {
 			ph = response.photo[i];
-			ph.time = +Date.parse(ph.datetaken);
-			time = ph.time - (ph.time % step) + timeOffset;
+			ph.time = +Date.parse(ph.datetaken) + timeOffset;
+			time = ph.time - (ph.time % step);
 			tc = timecode.codes[time];
 
 			if (!tc) {
@@ -45,7 +45,7 @@ var tagPhotos = function (page) {
 			if (!tc) { continue; }
 
 			p = {
-				'time' : time,
+				'time' : ph.time,
 				'pageUrl' : 'http://www.flickr.com/photos/' + userId + '/' + ph.id + '/in/set-' + setId,
 				'url_m' : ph.url_m,
 				'url_s' : ph.url_s,

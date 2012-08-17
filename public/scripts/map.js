@@ -42,7 +42,10 @@ $(document).ready(function () {
 	var selectedStageName = null;
 	var photosActive = false;
 
-	var oms = new OverlappingMarkerSpiderfier(map);
+	var oms = new OverlappingMarkerSpiderfier(map, {
+		'nearbyDistance' : 45
+	});
+
 	oms.addListener('click', function (marker) {
 		if (marker.x_type && marker.x_type === 'comment') {
 			$('#sidebar div.comment span.time').text(new Date(+marker.x_poi.time).toString('MMM.dd HH:mm'));
@@ -114,6 +117,8 @@ $(document).ready(function () {
 					img = $('<img />');
 					img.attr('src', data.url_sq);
 					a.append(img);
+
+				$('#sidebar div.photo span.time').text(new Date(+data.time).toString('MMM.dd HH:mm'));
 
 					ul.append(li);
 				}
