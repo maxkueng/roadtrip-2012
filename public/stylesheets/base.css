@@ -164,6 +164,17 @@ div#loader {
 	top: -25px; /* half of height */
 }
 
+div#music {
+	position: absolute;
+	bottom: 25px;
+	right: 10px;;
+	z-index: 390;
+	font-size: 28px;
+}
+
+div#music i { padding-left: 10px; color: #fff; }
+div#music:hover i.icon-bolt { font-size: 34px; color: #fff400; }
+
 div#stage-overlay {
 	position: absolute;
 	top: 10px;

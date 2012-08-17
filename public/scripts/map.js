@@ -42,6 +42,19 @@ $(document).ready(function () {
 	var selectedStageName = null;
 	var photosActive = false;
 
+	var fancyboxIt = function () {
+		$(".fancybox").fancybox({
+			
+			'openEffect' : 'elastic',
+			'closeEffect' : 'elastic',
+			'afterLoad' : function () {
+				var photoPage = $(this.element).data('photopage-url')
+				console.log(photoPage);
+				this.content = '<h1>2. My custom title</h1>' + $(this.content).html();
+			}
+		});
+	};
+
 	var oms = new OverlappingMarkerSpiderfier(map, {
 		'nearbyDistance' : 45
 	});
@@ -77,11 +90,17 @@ $(document).ready(function () {
 			img.attr('src', data.url_s);
 
 			a = $('<a />');
-			a.attr('href', data.pageUrl);
+			a.addClass('fancybox');
+			a.data('photopage-url', data.pageUrl);
+			a.attr('href', data.url_c);
 			a.append(img);
+
+			$('#sidebar div.photo span.time').text(new Date(+data.time).toString('MMM.dd HH:mm'));
 
 			$('#sidebar div.photo div.image').empty();
 			$('#sidebar div.photo div.image').append(a);
+
+			fancyboxIt();
 
 			$('#sidebar div.photo').slideDown();
 			$('#sidebar div.comment').slideUp();
@@ -111,17 +130,20 @@ $(document).ready(function () {
 
 					li = $('<li class="p" />');
 					a = $('<a />');
-					a.attr('href', data.pageUrl);
+					a.attr('href', data.url_c);
+					a.attr('rel', 'spider')
+					a.data('photopage-url', data.pageUrl);
+					a.addClass('fancybox');
 					li.append(a);
 
 					img = $('<img />');
 					img.attr('src', data.url_sq);
 					a.append(img);
 
-				$('#sidebar div.photo span.time').text(new Date(+data.time).toString('MMM.dd HH:mm'));
-
 					ul.append(li);
 				}
+
+				fancyboxIt();
 
 				$('#sidebar div.maintenance').slideUp();
 				$('#sidebar div.comment').slideUp();
@@ -137,7 +159,6 @@ $(document).ready(function () {
 			if (photosActive) { return; }
 			$('#sidebar .photos').slideUp();
 		}, 500);
-		console.log('u', spiderfied.length, unspiderfied.length);
 	});
 
 	map.on('click', function (e) {
