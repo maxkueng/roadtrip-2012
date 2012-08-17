@@ -68,11 +68,29 @@ $(document).ready(function () {
 		$('#sidebar div.photo').slideUp();
 	});
 
+	var secsToTimeString = function (secs) {
+		var s = 0, m = 0, h = 0;
+		secs = Math.round(secs);
+
+		h   = Math.floor(secs / 3600);
+		m = Math.floor((secs - (h * 3600)) / 60);
+		s = secs - (h * 3600) - (m * 60);
+
+		if (h < 10) { h = '0' + h; }  
+		if (m < 10) { m = '0' + m; }  
+		if (s < 10) { s = '0' + s; }  
+
+		return h + ':' + m + ':' + s;
+	};
+
 	var updateTripInfo = function () {
 		$('#sidebar .tripinfo .from').text(tripInfo.from + ' ');
 		$('#sidebar .tripinfo .to').text(tripInfo.to) + ' ';
-		$('#sidebar .tripinfo .distance').text(tripInfo.distance + ' km');
-		$('#sidebar .tripinfo .avgspeed').text(tripInfo.avgSpeed + ' km/h');
+		$('#sidebar .tripinfo .distance').text((Math.round(tripInfo.distance * 100) / 100) + ' km');
+		$('#sidebar .tripinfo .avgspeed').text((Math.round(tripInfo.avgSpeed * 100) / 100) + ' km/h');
+		$('#sidebar .tripinfo .ridetime').text(secsToTimeString(tripInfo.rideTimeSecs));
+		$('#sidebar .tripinfo .altigain').text(tripInfo.altiGain + ' m');
+		$('#sidebar .tripinfo .altiloss').text(tripInfo.altiLoss + ' m');
 	};
 
 	var showStageInfo = function (stageName) {
@@ -86,8 +104,9 @@ $(document).ready(function () {
 			$('#sidebar .stageinfo .to').text(stats.to);
 			$('#sidebar .stageinfo .distance').text(stats.distance + ' km');
 			$('#sidebar .stageinfo .avgspeed').text(stats.avgSpeed + ' km/h');
-			$('#sidebar .stageinfo .altigain').text(stats.altiGain + ' m');
-			$('#sidebar .stageinfo .altiloss').text(stats.altiLoss + ' m');
+			$('#sidebar .stageinfo .altigain').text(stats.altiGain + ' m (avg. ' + stats.avgAscend + '%)');
+			$('#sidebar .stageinfo .altiloss').text(stats.altiLoss + ' m (avg. ' + stats.avgDescend + '%)');
+			$('#sidebar .stageinfo .ridetime').text(stats.rideTime);
 			stageInfoActive = true;
 
 			setTimeout(function () {
@@ -206,7 +225,11 @@ $(document).ready(function () {
 			'toStage' : null,
 			'to' : '',
 			'distance' : 0,
-			'avgSpeed' : null
+			'avgSpeed' : 0,
+			'rideTime' : 0,
+			'rideTimeSecs' : 0,
+			'altiGain' : 0,
+			'altiLoss' : 0
 		};
 
 		$.getJSON('/data/stages.json', function(data) {
@@ -242,6 +265,14 @@ $(document).ready(function () {
 					} else {
 						tripInfo.avgSpeed = stats.avgSpeed;
 					}
+
+					var tp = /^(\d\d):(\d\d):(\d\d)$/.exec(stats.rideTime);
+					var secs = ( +tp[3] + (tp[2] * 60) + (tp[1] * 3600) );
+
+					tripInfo.rideTimeSecs += secs;
+
+					tripInfo.altiGain += stats.altiGain;
+					tripInfo.altiLoss += stats.altiLoss;
 
 					updateTripInfo();
 				});
