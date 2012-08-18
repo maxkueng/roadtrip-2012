@@ -44,13 +44,8 @@ $(document).ready(function () {
 
 	var fancyboxIt = function () {
 		$(".fancybox").fancybox({
-			
 			'openEffect' : 'elastic',
-			'closeEffect' : 'elastic',
-			'afterLoad' : function () {
-				var photoPage = $(this.element).data('photopage-url')
-				this.content = '<h1>2. My custom title</h1>' + $(this.content).html();
-			}
+			'closeEffect' : 'elastic'
 		});
 	};
 
