@@ -49,7 +49,6 @@ $(document).ready(function () {
 			'closeEffect' : 'elastic',
 			'afterLoad' : function () {
 				var photoPage = $(this.element).data('photopage-url')
-				console.log(photoPage);
 				this.content = '<h1>2. My custom title</h1>' + $(this.content).html();
 			}
 		});
