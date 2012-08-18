@@ -40,5 +40,19 @@
 		"message": "Iuhoi ubh",
 		"latitude": 45.420096,
 		"longitude": 11.334613
+	},
+	"poi-177--14": {
+		"time": 1274545829000,
+		"type": "",
+		"message": "",
+		"latitude": 39.393831,
+		"longitude": -0.350338
+	},
+	"poi-178--14": {
+		"time": 1274545833000,
+		"type": "",
+		"message": "",
+		"latitude": 39.393831,
+		"longitude": -0.350338
 	}
 }
