@@ -77,8 +77,12 @@ $(document).ready(function () {
 		}
 
 		if (marker.x_type && marker.x_type === 'photo') {
-			var data, img, a;
+			var data, img, a, bigURL;
 			data = marker.x_photo;
+
+			bigURL = data.url_m;
+			if (data.url_m) { bigURL = data.url_m; } 
+			if (data.url_c) { bigURL = data.url_c; } 
 
 			img = $('<img />');
 			img.attr('src', data.url_s);
@@ -86,7 +90,7 @@ $(document).ready(function () {
 			a = $('<a />');
 			a.addClass('fancybox');
 			a.data('photopage-url', data.pageUrl);
-			a.attr('href', data.url_c);
+			a.attr('href', bigURL);
 			a.append(img);
 
 			$('#sidebar div.photo span.time').text(new Date(+data.time).toString('MMM.dd HH:mm'));
@@ -105,7 +109,7 @@ $(document).ready(function () {
 	});
 
 	oms.addListener('spiderfy', function (spiderfied, unspiderfied) {
-			var i, len, photos, data, ul, li, a, img;
+			var i, len, photos, data, ul, li, a, img, bigURL;
 			photos = [];
 
 			for (i = 0, len = spiderfied.length; i < len; i++) {
@@ -122,9 +126,13 @@ $(document).ready(function () {
 				for (i = 0, len = photos.length; i < len; i++) {
 					data = photos[i];
 
+					bigURL = data.url_m;
+					if (data.url_m) { bigURL = data.url_m; } 
+					if (data.url_c) { bigURL = data.url_c; } 
+
 					li = $('<li class="p" />');
 					a = $('<a />');
-					a.attr('href', data.url_c);
+					a.attr('href', bigURL);
 					a.attr('rel', 'spider')
 					a.data('photopage-url', data.pageUrl);
 					a.addClass('fancybox');
