@@ -1,0 +1,287 @@
+
+div.container {
+	right: 10px;
+	top: 10px;
+	position: absolute;
+	z-index: 400;
+	background-color: rgba(199, 239, 118, 0.3);
+	width: 300px;
+}
+
+div.container dl.dl-horizontal dt {
+	width: 80px;
+}
+
+div.container dl.dl-horizontal dd {
+	margin-left: 90px;
+}
+
+div.container [class^="icon-"] {
+	font-size: 1.2em;
+	line-height: 18px;
+	height: 18px;
+}
+
+div.container h3 [class^="icon-"] {
+	line-height: 27px;
+	height: 27px;
+	padding-right: 9px;
+}
+
+div.container blockquote.box {
+	font-weight: bold;
+	font-style: italic;
+	margin: 9px 0 0 30px;
+	padding: 0;
+	border: none;
+}
+
+div.container blockquote.box:before {
+	content: '“';
+	font-size: 1.2em;
+}
+
+div.container blockquote.box:after {
+	content: '”';
+	font-size: 1.2em;
+}
+
+#map {
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+}
+
+/*#loader {
+	position: absolute;
+	top: 200px;
+	left: 200px;
+	width: 50px;
+	height: 50px;
+}*/
+
+div#sidebar {
+	position: relative;
+	padding: 12px;
+	background-color: #0A0B12;
+	background-color: rgba(10, 11, 18, 0.8);
+	border: 1px solid #0B0719;
+	border-color: rgba(11, 7, 25, 0.8);
+	border-radius: 3px;
+	box-shadow: 0px 10px 10px #253F4C;
+	color: #fff;
+}
+
+div#sidebar .section {
+	border-top: 1px solid rgba(255, 255, 255, 0.7);
+	padding-top: 12px;
+}
+
+div#sidebar .zoominfo {
+	position: absolute;
+	top: 16px;
+	right: 12px;
+	color: #EFCB76;
+	color: rgba(239, 203, 118, 1);
+}
+
+div#sidebar .photos ul {
+	margin: 9px 0 0 0;
+	padding: 0;
+	overflow: hidden;
+}
+
+div#sidebar .photos ul li {
+	list-style-type: none;
+	display: block;
+	float: left;
+}
+
+div#sidebar .photo div.image a,
+div#sidebar .photos ul li a {
+	border-radius: 3px;
+	padding: 4px;
+	background-color: #fff;
+	display: block;
+	margin: 0 8px 8px 0;
+	box-shadow: 0px 4px 4px #253F4C;
+}
+
+div#sidebar .photo div.image a img,
+div#sidebar .photos ul li a img {
+	display: block;
+}
+
+div#sidebar .photo .image {
+	margin: 9px 0 0 0;
+	overflow: hidden;
+}
+
+div#sidebar .photo .image a {
+	float: left;
+}
+
+
+div#sidebar div.photos, 
+div#sidebar div.photo, 
+div#sidebar div.maintenance, 
+div#sidebar div.comment, 
+div#sidebar div.stageinfo {
+	position: relative;
+	display: none;
+}
+
+div#sidebar .comment p.time,
+div#sidebar .maintenance p.time,
+div#sidebar .photo p.time,
+div#sidebar .stageinfo p.time,
+div#sidebar .stageinfo p.stagename {
+	position: absolute;
+	top: 17px;
+	right: 0;
+}
+
+div#loader-wrapper {
+	height: 0px; /* set to taste */
+	/* required */
+	position: absolute;
+	overflow: visible;
+	display: block;
+	width: 100%;
+	left: 0px;
+	top: 50%;
+}
+
+div#loader {
+	overflow: hidden; /* set to taste */
+	position: absolute; /* required */
+	left: 50%; /* required */
+	margin-left: -25px; /* half of width */
+	width: 50px; /* width of div */
+	height: 50px; /* height of div */
+	top: -25px; /* half of height */
+}
+
+div#music {
+	position: absolute;
+	bottom: 25px;
+	right: 10px;;
+	z-index: 390;
+	font-size: 28px;
+}
+
+div#music i { padding-left: 10px; color: #fff; }
+div#music:hover i.icon-bolt { font-size: 34px; color: #fff400; }
+
+div#stage-overlay {
+	position: absolute;
+	top: 10px;
+	left: 50%;
+	margin-left: -300px;
+	z-index: 200;
+	width: 600px;
+	height: 100px;
+}
+
+div#stage-overlay-bg {
+	position: absolute;
+	top: 0;
+	left: 0;
+	bottom: 0;
+	right: 0;
+	width: 100%
+	height: 100%;
+	background-color: #0A0B12;
+	border: 1px solid #0B0719;
+	border-radius: 3px;
+	opacity: 0.8;
+	box-shadow: 0px 10px 10px #253F4C;
+}
+
+div#stage-overlay-content {
+	position: absolute;
+	top: 10px;
+	left: 10px;
+	bottom: 10px;
+	right: 10px;
+	width: 100%
+	height: 100%;
+	color: #fff;
+}
+
+div#stage-overlay-content p {
+	margin: 0;
+	padding: 0;
+	height: 1.5em;
+	line-height: 1.5em;
+}
+
+div#stage-overlay p.stage {
+	color: #D5FF00;
+	text-transform: uppercase;
+	font-weight: bold;
+}
+
+div#stage-overlay p.time {
+	position: absolute;
+	right: 0;
+	top: 0;
+	color: #D5FF00;
+}
+
+div#stage-overlay p.time .label,
+div#stage-overlay p.avgspeed .label,
+div#stage-overlay p.from .label,
+div#stage-overlay p.to .label {
+	display: none;
+}
+
+div#stage-overlay p.from,
+div#stage-overlay p.distance {
+	float: left;
+	clear: left;
+}
+
+div#stage-overlay p.from span.from:after {
+	content: "»";
+	font-size: 16px;
+	display: inline-block;
+	padding: 0 10px 0 10px;
+}
+
+div#stage-overlay p.distance span.label:after {
+	content: ":";
+}
+
+div#stage-overlay p.distance span.distance:after {
+	content: "at";
+	display: inline-block;
+	padding: 0 0.5em 0 0.5em;
+}
+
+/*div#stage-overlay p.avgspeed span.avgspeed:after {
+	content: " (avg. speed) ";
+}*/
+
+.photo-marker {
+	font-size: 24px;
+	text-shadow: 0 -1px #fff, 1px 0 #fff, 0 1px #fff, -1px 0 #fff;
+}
+
+.photo-marker .icon-camera.portrait {
+	transform: rotate(-90deg); 
+	-webkit-transform: rotate(-90deg); 
+	-moz-transform: rotate(-90deg);	
+}
+
+.comment-marker {
+	font-size: 24px;
+	text-shadow: 0 -1px #fff, 1px 0 #fff, 0 1px #fff, -1px 0 #fff;;
+}
+
+.maintenance-marker {
+	font-size: 24px;
+	text-shadow: 0 -1px #fff, 1px 0 #fff, 0 1px #fff, -1px 0 #fff;;
+}
