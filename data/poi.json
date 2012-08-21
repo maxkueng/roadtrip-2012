@@ -1,9 +1,44 @@
 {
 	"poi-5104-411": {
 		"time": 1345378378000,
-		"type": "",
+		"type": "xxx",
 		"message": "",
 		"latitude": 47.215379,
 		"longitude": 8.699505
+	},
+	"poi-399-451": {
+		"time": 1345479198000,
+		"type": "",
+		"message": "",
+		"latitude": 47.478394,
+		"longitude": 9.490024
+	},
+	"poi-2573-430": {
+		"time": 1345457426000,
+		"type": "",
+		"message": "",
+		"latitude": 47.444086,
+		"longitude": 9.069015
+	},
+	"poi-3158-455": {
+		"time": 1345482007000,
+		"type": "",
+		"message": "",
+		"latitude": 47.46679,
+		"longitude": 9.594281
+	},
+	"poi-6-463": {
+		"time": 1345564790000,
+		"type": "",
+		"message": "",
+		"latitude": 47.497409,
+		"longitude": 9.745014
+	},
+	"poi-2511-463": {
+		"time": 1345567342000,
+		"type": "",
+		"message": "",
+		"latitude": 47.503546,
+		"longitude": 9.750666
 	}
 }
