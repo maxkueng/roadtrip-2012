@@ -60,6 +60,7 @@ $(document).ready(function () {
 
 			$('#sidebar div.comment').slideDown();
 			$('#sidebar div.maintenance').slideUp();
+			$('#sidebar div.medi').slideUp();
 			$('#sidebar div.photo').slideUp();
 			$('#sidebar div.photos').slideUp();
 			return;
@@ -70,6 +71,19 @@ $(document).ready(function () {
 			$('#sidebar blockquote.comment').text(marker.x_poi.message);
 
 			$('#sidebar div.maintenance').slideDown();
+			$('#sidebar div.medi').slideUp();
+			$('#sidebar div.comment').slideUp();
+			$('#sidebar div.photo').slideUp();
+			$('#sidebar div.photos').slideUp();
+			return;
+		}
+
+		if (marker.x_type && marker.x_type === 'medi') {
+			$('#sidebar div.medi span.time').text(new Date(+marker.x_poi.time).toString('MMM.dd HH:mm'));
+			$('#sidebar blockquote.comment').text(marker.x_poi.message);
+
+			$('#sidebar div.medi').slideDown();
+			$('#sidebar div.maintenance').slideUp();
 			$('#sidebar div.comment').slideUp();
 			$('#sidebar div.photo').slideUp();
 			$('#sidebar div.photos').slideUp();
@@ -103,6 +117,7 @@ $(document).ready(function () {
 			$('#sidebar div.photo').slideDown();
 			$('#sidebar div.comment').slideUp();
 			$('#sidebar div.maintenance').slideUp();
+			$('#sidebar div.medi').slideUp();
 			$('#sidebar div.photos').slideUp();
 			return;
 		}
@@ -148,6 +163,7 @@ $(document).ready(function () {
 				fancyboxIt();
 
 				$('#sidebar div.maintenance').slideUp();
+				$('#sidebar div.medi').slideUp();
 				$('#sidebar div.comment').slideUp();
 				$('#sidebar div.photo').slideUp();
 				$('#sidebar div.photos').slideDown();
@@ -166,6 +182,7 @@ $(document).ready(function () {
 	map.on('click', function (e) {
 		$('#sidebar div.comment').slideUp();
 		$('#sidebar div.maintenance').slideUp();
+		$('#sidebar div.medi').slideUp();
 		$('#sidebar div.photo').slideUp();
 		$('#sidebar div.photos').slideUp();
 	});
@@ -287,6 +304,7 @@ $(document).ready(function () {
 
 		rect.on('click', function (e) {
 			$('#sidebar div.maintenance').slideUp();
+			$('#sidebar div.medi').slideUp();
 			$('#sidebar div.comment').slideUp();
 			$('#sidebar div.photo').slideUp();
 			$('#sidebar div.photos').slideUp();
@@ -313,6 +331,7 @@ $(document).ready(function () {
 
 			layer.on('click', function (e) {
 				$('#sidebar div.maintenance').slideUp();
+				$('#sidebar div.medi').slideUp();
 				$('#sidebar div.comment').slideUp();
 				$('#sidebar div.photo').slideUp();
 				$('#sidebar div.photos').slideUp();
@@ -328,6 +347,7 @@ $(document).ready(function () {
 
 			layer.on('click', function (e) {
 				$('#sidebar div.maintenance').slideUp();
+				$('#sidebar div.medi').slideUp();
 				$('#sidebar div.comment').slideUp();
 				$('#sidebar div.photo').slideUp();
 				$('#sidebar div.photos').slideUp();
@@ -455,6 +475,12 @@ $(document).ready(function () {
 		'iconSize' : new L.Point(30, 22)
 	});
 
+	var mediIcon = new L.DivIcon({
+		'html' : '<div class="medi icon-heart"></div>',
+		'className' : 'medi-marker',
+		'iconSize' : new L.Point(30, 22)
+	});
+
 	var getPOIs = function () {
 		$.getJSON('data/poi.json', function (pois) {
 			var id, marker;
@@ -475,6 +501,16 @@ $(document).ready(function () {
 						'icon' : maintenanceIcon	
 					});
 					marker.x_type = 'maintenance';
+					marker.x_poi = pois[id];
+					marker.addTo(poiLayer);
+					oms.addMarker(marker);
+				}
+
+				if (pois[id].type === 'medi') {
+					marker = new L.Marker(new L.LatLng(pois[id].latitude, pois[id].longitude), {
+						'icon' : mediIcon	
+					});
+					marker.x_type = 'medi';
 					marker.x_poi = pois[id];
 					marker.addTo(poiLayer);
 					oms.addMarker(marker);

@@ -127,6 +127,7 @@ div#sidebar .photo .image a {
 div#sidebar div.photos, 
 div#sidebar div.photo, 
 div#sidebar div.maintenance, 
+div#sidebar div.medi, 
 div#sidebar div.comment, 
 div#sidebar div.stageinfo {
 	position: relative;
@@ -135,6 +136,7 @@ div#sidebar div.stageinfo {
 
 div#sidebar .comment p.time,
 div#sidebar .maintenance p.time,
+div#sidebar .medi p.time,
 div#sidebar .photo p.time,
 div#sidebar .stageinfo p.time,
 div#sidebar .stageinfo p.stagename {
@@ -282,6 +284,11 @@ div#stage-overlay p.distance span.distance:after {
 }
 
 .maintenance-marker {
+	font-size: 24px;
+	text-shadow: 0 -1px #fff, 1px 0 #fff, 0 1px #fff, -1px 0 #fff;;
+}
+
+.medi-marker {
 	font-size: 24px;
 	text-shadow: 0 -1px #fff, 1px 0 #fff, 0 1px #fff, -1px 0 #fff;;
 }
