@@ -12,14 +12,15 @@ var photosPath = path.join(dataPath, 'photos.json');
 
 var userId = '67854812@N00'
 //var setId = '72157623765049240';
-var setId = '72157631077056194';
+//var setId = '72157631077056194';
+var setId = '72157631148972204';
 var photos = [];
 var timecode = {};
 
 var tcData = fs.readFileSync(timecodePath, 'utf8');
 var timecode = JSON.parse(tcData);
 var step = 600000;
-var timeOffset = 24 * 60 * 60 * 1000;
+var timeOffset = 0 * 60 * 60 * 1000;
 
 var tagPhotos = function (page) {
 	if (typeof page === 'undefined') { page = 1; }

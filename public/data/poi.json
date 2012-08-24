@@ -1,44 +1,44 @@
 {
-	"poi-8-412": {
-		"time": 1300779738000,
-		"type": "comment",
-		"message": "Bakjn kjbdslkjd",
-		"latitude": 46.003054,
-		"longitude": 8.945553
+	"poi-5104-411": {
+		"time": 1345378378000,
+		"type": "xxx",
+		"message": "",
+		"latitude": 47.215379,
+		"longitude": 8.699505
 	},
-	"poi-5605-412": {
-		"time": 1300786451000,
-		"type": "comment",
-		"message": "Uuyb uhb jkb",
-		"latitude": 45.876665,
-		"longitude": 8.984053
+	"poi-399-451": {
+		"time": 1345479198000,
+		"type": "xxx",
+		"message": "339-451",
+		"latitude": 47.478394,
+		"longitude": 9.490024
 	},
-	"poi-26230-421": {
-		"time": 1300807198000,
-		"type": "maintenance",
-		"message": "Flat tire",
-		"latitude": 45.598891,
-		"longitude": 9.237106
+	"poi-2573-430": {
+		"time": 1345457426000,
+		"type": "xxx",
+		"message": "2573-430",
+		"latitude": 47.444086,
+		"longitude": 9.069015
 	},
-	"poi-16630-451": {
-		"time": 1300975269000,
+	"poi-3158-455": {
+		"time": 1345482007000,
 		"type": "comment",
-		"message": "Y Bkjhb kj",
-		"latitude": 45.618641,
-		"longitude": 9.896478
+		"message": "Crossing border to Austria",
+		"latitude": 47.46679,
+		"longitude": 9.594281
 	},
-	"poi-25595-465": {
-		"time": 1300984277000,
-		"type": "comment",
-		"message": "Iuiuiujh jh",
-		"latitude": 45.514794,
-		"longitude": 10.21539
+	"poi-6-463": {
+		"time": 1345564790000,
+		"type": "medi",
+		"message": "Medi",
+		"latitude": 47.497409,
+		"longitude": 9.745014
 	},
-	"poi-3404-515": {
-		"time": 1301132290000,
-		"type": "comment",
-		"message": "Iuhoi ubh",
-		"latitude": 45.420096,
-		"longitude": 11.334613
+	"poi-2511-463": {
+		"time": 1345567342000,
+		"type": "xxx",
+		"message": "2511-463",
+		"latitude": 47.503546,
+		"longitude": 9.750666
 	}
 }
