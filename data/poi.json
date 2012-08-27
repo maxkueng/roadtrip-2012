@@ -40,5 +40,26 @@
 		"message": "2511-463",
 		"latitude": 47.503546,
 		"longitude": 9.750666
+	},
+	"poi-1-463": {
+		"time": 1345973258000,
+		"type": "",
+		"message": "",
+		"latitude": 47.503956,
+		"longitude": 9.742291
+	},
+	"poi-13221-467": {
+		"time": 1345987366000,
+		"type": "",
+		"message": "",
+		"latitude": 47.574228,
+		"longitude": 9.82626
+	},
+	"poi-2381-471": {
+		"time": 1345998822000,
+		"type": "",
+		"message": "",
+		"latitude": 47.530051,
+		"longitude": 9.918386
 	}
 }
