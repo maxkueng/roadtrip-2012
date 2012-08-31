@@ -89,5 +89,348 @@
 		"message": "",
 		"latitude": 47.26391,
 		"longitude": 11.326121
+	},
+	"poi-1592-538": {
+		"time": 1346329439000,
+		"type": "",
+		"message": "",
+		"latitude": 47.265008,
+		"longitude": 11.375533
+	},
+	"poi-1640-538": {
+		"time": 1346329491000,
+		"type": "",
+		"message": "",
+		"latitude": 47.264094,
+		"longitude": 11.375346
+	},
+	"poi-1643-538": {
+		"time": 1346329496000,
+		"type": "",
+		"message": "",
+		"latitude": 47.264023,
+		"longitude": 11.375089
+	},
+	"poi-5478-539": {
+		"time": 1346335210000,
+		"type": "",
+		"message": "",
+		"latitude": 47.271608,
+		"longitude": 11.392061
+	},
+	"poi-5493-539": {
+		"time": 1346335229000,
+		"type": "",
+		"message": "",
+		"latitude": 47.27206,
+		"longitude": 11.392139
+	},
+	"poi-5496-539": {
+		"time": 1346335233000,
+		"type": "",
+		"message": "",
+		"latitude": 47.272096,
+		"longitude": 11.392248
+	},
+	"poi-5512-539": {
+		"time": 1346335250000,
+		"type": "",
+		"message": "",
+		"latitude": 47.272323,
+		"longitude": 11.392474
+	},
+	"poi-5514-539": {
+		"time": 1346335253000,
+		"type": "",
+		"message": "",
+		"latitude": 47.272368,
+		"longitude": 11.392604
+	},
+	"poi-5521-539": {
+		"time": 1346335267000,
+		"type": "",
+		"message": "",
+		"latitude": 47.272771,
+		"longitude": 11.392945
+	},
+	"poi-5527-539": {
+		"time": 1346335275000,
+		"type": "",
+		"message": "",
+		"latitude": 47.272919,
+		"longitude": 11.393068
+	},
+	"poi-5529-539": {
+		"time": 1346335278000,
+		"type": "",
+		"message": "",
+		"latitude": 47.272973,
+		"longitude": 11.39314
+	},
+	"poi-5539-539": {
+		"time": 1346335288000,
+		"type": "",
+		"message": "",
+		"latitude": 47.273311,
+		"longitude": 11.393466
+	},
+	"poi-5542-539": {
+		"time": 1346335293000,
+		"type": "",
+		"message": "",
+		"latitude": 47.273451,
+		"longitude": 11.393558
+	},
+	"poi-5543-539": {
+		"time": 1346335296000,
+		"type": "",
+		"message": "",
+		"latitude": 47.273545,
+		"longitude": 11.393656
+	},
+	"poi-5553-539": {
+		"time": 1346335308000,
+		"type": "",
+		"message": "",
+		"latitude": 47.273686,
+		"longitude": 11.393751
+	},
+	"poi-5556-539": {
+		"time": 1346335315000,
+		"type": "",
+		"message": "",
+		"latitude": 47.273685,
+		"longitude": 11.393749
+	},
+	"poi-5580-539": {
+		"time": 1346335339000,
+		"type": "",
+		"message": "",
+		"latitude": 47.273668,
+		"longitude": 11.393793
+	},
+	"poi-5583-539": {
+		"time": 1346335347000,
+		"type": "",
+		"message": "",
+		"latitude": 47.273659,
+		"longitude": 11.393833
+	},
+	"poi-5585-539": {
+		"time": 1346335351000,
+		"type": "",
+		"message": "",
+		"latitude": 47.273676,
+		"longitude": 11.393843
+	},
+	"poi-5586-539": {
+		"time": 1346335356000,
+		"type": "",
+		"message": "",
+		"latitude": 47.273644,
+		"longitude": 11.393776
+	},
+	"poi-5603-539": {
+		"time": 1346335374000,
+		"type": "",
+		"message": "",
+		"latitude": 47.273018,
+		"longitude": 11.393338
+	},
+	"poi-5605-539": {
+		"time": 1346335378000,
+		"type": "",
+		"message": "",
+		"latitude": 47.272913,
+		"longitude": 11.393263
+	},
+	"poi-5607-539": {
+		"time": 1346335380000,
+		"type": "",
+		"message": "",
+		"latitude": 47.272858,
+		"longitude": 11.393221
+	},
+	"poi-5622-539": {
+		"time": 1346335399000,
+		"type": "",
+		"message": "",
+		"latitude": 47.272331,
+		"longitude": 11.392708
+	},
+	"poi-5635-539": {
+		"time": 1346335413000,
+		"type": "",
+		"message": "",
+		"latitude": 47.272056,
+		"longitude": 11.392466
+	},
+	"poi-5636-539": {
+		"time": 1346335415000,
+		"type": "",
+		"message": "",
+		"latitude": 47.272051,
+		"longitude": 11.39246
+	},
+	"poi-5672-539": {
+		"time": 1346335457000,
+		"type": "",
+		"message": "",
+		"latitude": 47.2717,
+		"longitude": 11.392111
+	},
+	"poi-5679-539": {
+		"time": 1346335468000,
+		"type": "",
+		"message": "",
+		"latitude": 47.271618,
+		"longitude": 11.391701
+	},
+	"poi-5687-539": {
+		"time": 1346335477000,
+		"type": "",
+		"message": "",
+		"latitude": 47.271359,
+		"longitude": 11.391699
+	},
+	"poi-5691-538": {
+		"time": 1346335482000,
+		"type": "",
+		"message": "",
+		"latitude": 47.271113,
+		"longitude": 11.391544
+	},
+	"poi-5696-538": {
+		"time": 1346335490000,
+		"type": "",
+		"message": "",
+		"latitude": 47.270818,
+		"longitude": 11.391528
+	},
+	"poi-5715-538": {
+		"time": 1346335511000,
+		"type": "",
+		"message": "",
+		"latitude": 47.2704,
+		"longitude": 11.391424
+	},
+	"poi-5720-538": {
+		"time": 1346335517000,
+		"type": "",
+		"message": "",
+		"latitude": 47.270383,
+		"longitude": 11.391438
+	},
+	"poi-5721-538": {
+		"time": 1346335519000,
+		"type": "",
+		"message": "",
+		"latitude": 47.270345,
+		"longitude": 11.391444
+	},
+	"poi-5725-538": {
+		"time": 1346335524000,
+		"type": "",
+		"message": "",
+		"latitude": 47.270085,
+		"longitude": 11.391498
+	},
+	"poi-5732-538": {
+		"time": 1346335536000,
+		"type": "",
+		"message": "",
+		"latitude": 47.269804,
+		"longitude": 11.39134
+	},
+	"poi-5733-538": {
+		"time": 1346335540000,
+		"type": "",
+		"message": "",
+		"latitude": 47.26972,
+		"longitude": 11.391276
+	},
+	"poi-5736-538": {
+		"time": 1346335544000,
+		"type": "",
+		"message": "",
+		"latitude": 47.269636,
+		"longitude": 11.391231
+	},
+	"poi-5737-538": {
+		"time": 1346335546000,
+		"type": "",
+		"message": "",
+		"latitude": 47.269541,
+		"longitude": 11.391201
+	},
+	"poi-5738-538": {
+		"time": 1346335548000,
+		"type": "",
+		"message": "",
+		"latitude": 47.269488,
+		"longitude": 11.391151
+	},
+	"poi-5840-538": {
+		"time": 1346335656000,
+		"type": "",
+		"message": "",
+		"latitude": 47.269559,
+		"longitude": 11.388868
+	},
+	"poi-5-538": {
+		"time": 1346335803000,
+		"type": "",
+		"message": "",
+		"latitude": 47.27126,
+		"longitude": 11.386491
+	},
+	"poi-8-538": {
+		"time": 1346335808000,
+		"type": "",
+		"message": "",
+		"latitude": 47.271286,
+		"longitude": 11.386461
+	},
+	"poi-57-538": {
+		"time": 1346335862000,
+		"type": "",
+		"message": "",
+		"latitude": 47.271413,
+		"longitude": 11.385579
+	},
+	"poi-2-538": {
+		"time": 1346336073000,
+		"type": "",
+		"message": "",
+		"latitude": 47.267943,
+		"longitude": 11.387883
+	},
+	"poi-69-538": {
+		"time": 1346336147000,
+		"type": "",
+		"message": "",
+		"latitude": 47.267923,
+		"longitude": 11.388043
+	},
+	"poi-735-538": {
+		"time": 1346337192000,
+		"type": "",
+		"message": "",
+		"latitude": 47.26808,
+		"longitude": 11.388189
+	},
+	"poi-5-536": {
+		"time": 1346350939000,
+		"type": "",
+		"message": "",
+		"latitude": 47.236489,
+		"longitude": 11.340318
+	},
+	"poi-12-536": {
+		"time": 1346350947000,
+		"type": "",
+		"message": "",
+		"latitude": 47.236488,
+		"longitude": 11.340316
 	}
 }
