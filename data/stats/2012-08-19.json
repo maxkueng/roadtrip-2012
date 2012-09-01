@@ -1,0 +1,20 @@
+{
+	stage : 1,
+	stageName : "2012-08-19",
+	time : 1345334400000,
+	from : "Zurich, Switzerland",
+	to : "Schwarzenbach, Switzerland",
+	distance : 95.20,
+	rideTime : "05:00:13",
+	avgSpeed : 19.02,
+	maxSpeed : null,
+	altiGain : 2162,
+	maxAlti : 863,
+	avgAscGradient : null,
+	maxAscGradient : null,
+	altoLoss : 2050,
+	avgDescGradient : null,
+	maxDescGradient : null
+	sleep : "wcamp, tent, river",
+	weather : "sunny, warm"
+}
