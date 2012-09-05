@@ -370,7 +370,7 @@ $(document).ready(function () {
 			'toStage' : null,
 			'to' : '',
 			'distance' : 0,
-			'avgSpeed' : 0,
+			'avgSpeed' : null,
 			'rideTime' : 0,
 			'rideTimeSecs' : 0,
 			'altiGain' : 0,

@@ -1,0 +1,21 @@
+{
+	"stage" : 3,
+	"stageName" : "2012-08-21",
+	"time" : 1345507200000,
+	"from" : "Bregenz, Austria",
+	"to" : ", Bregenz, Austria",
+	"distance" : 41.27,
+	"rideTime" : "02:24:39",
+	"avgSpeed" : 17.12,
+	"maxSpeed" : null,
+	"altiGain" : 951,
+	"maxAlti" : 576,
+	"avgAscGradient" : null,
+	"maxAscGradient" : null,
+	"altiLoss" : 1111,
+	"avgDescGradient" : null,
+	"maxDescGradient" : null,
+	"sleep" : "hostel",
+	"weather" : "cloudy, warm"
+}
+
