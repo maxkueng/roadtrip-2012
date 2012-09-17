@@ -957,5 +957,33 @@
 		"message": "",
 		"latitude": 45.456988,
 		"longitude": 13.629254
+	},
+	"poi-6795-623": {
+		"time": 1347619552000,
+		"type": "",
+		"message": "",
+		"latitude": 45.361306,
+		"longitude": 13.734246
+	},
+	"poi-10155-623": {
+		"time": 1347623108000,
+		"type": "",
+		"message": "",
+		"latitude": 45.31182,
+		"longitude": 13.75011
+	},
+	"poi-15341-622": {
+		"time": 1347803329000,
+		"type": "",
+		"message": "",
+		"latitude": 44.889729,
+		"longitude": 13.845689
+	},
+	"poi-15426-622": {
+		"time": 1347803420000,
+		"type": "",
+		"message": "",
+		"latitude": 44.890026,
+		"longitude": 13.845898
 	}
 }
