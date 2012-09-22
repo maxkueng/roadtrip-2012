@@ -22,14 +22,14 @@
 	},
 	"poi-3158-455": {
 		"time": 1345482007000,
-		"type": "comment",
+		"type": "xcomment",
 		"message": "Crossing border to Austria",
 		"latitude": 47.46679,
 		"longitude": 9.594281
 	},
 	"poi-6-463": {
 		"time": 1345564790000,
-		"type": "medi",
+		"type": "xmedi",
 		"message": "Medi",
 		"latitude": 47.497409,
 		"longitude": 9.745014
@@ -985,5 +985,19 @@
 		"message": "",
 		"latitude": 44.890026,
 		"longitude": 13.845898
+	},
+	"poi-300-655": {
+		"time": 1348082935000,
+		"type": "",
+		"message": "",
+		"latitude": 45.324263,
+		"longitude": 14.455789
+	},
+	"poi-6826-665": {
+		"time": 1348249342000,
+		"type": "",
+		"message": "",
+		"latitude": 44.561423,
+		"longitude": 14.927605
 	}
 }
