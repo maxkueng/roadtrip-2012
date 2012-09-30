@@ -1,0 +1,21 @@
+{
+	"stage" : 2,
+	"stageName" : "2012-08-20",
+	"time" : 1345420800000,
+	"from" : "Wil, Switzerland",
+	"to" : ", Bregenz, Austria",
+	"distance" : 83.32,
+	"rideTime" : "05:00:06",
+	"avgSpeed" : 16.66,
+	"maxSpeed" : null,
+	"altiGain" : 226,
+	"maxAlti" : 576,
+	"avgAscGradient" : 3,
+	"maxAscGradient" : 17,
+	"altiLoss" : 342,
+	"avgDescGradient" : -2,
+	"maxDescGradient" : -11,
+	"sleep" : "camp, campsite",
+	"weather" : "sunny, warm, thunderstorm"
+}
+
